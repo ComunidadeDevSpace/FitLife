@@ -12,6 +12,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        println()
 
         // Recuperando as ID's do UI components
         val editTextAltura: EditText = findViewById(R.id.edit_text_altura)
