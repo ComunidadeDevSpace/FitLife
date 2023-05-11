@@ -4,70 +4,52 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".TelaPrincipalBotoesCalculo"
-    android:layout_margin="6dp"
     android:orientation="vertical"
-        >
+    tools:context=".TelaPrincipalBotoesCalculo">
+
+    <include layout="@layout/toolbar" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Olá Nome usuário"
-        android:textSize="18sp"
-        android:textAlignment="textStart"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="75dp"
-        />
+        android:text="Olá Nome usuário"
+        android:textAlignment="textStart"
+        android:textSize="18sp" />
 
     <TextView
         android:layout_width="match_parent"
         android:layout_height="30dp"
-        android:text="Escolha uma das opções abaixo:"
-        android:textSize="14sp"
-        android:textAlignment="textStart"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="95dp"
-        />
+        android:text="Escolha uma das opções abaixo:"
+        android:textAlignment="textStart"
+        android:textSize="14sp" />
 
     <Button
+        style="@style/ButtonPrimary"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="116sp"
         android:text="IMC"
         android:textSize="14sp"
-        android:layout_marginTop="116sp"
-        android:backgroundTint="@color/blue_02"
+        android:drawableLeft="@drawable/balanca"
         />
 
     <Button
+        style="@style/ButtonPrimary"
         android:layout_width="260dp"
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
+        android:layout_marginTop="199dp"
         android:text="Calorias"
         android:textSize="14sp"
-        android:layout_marginTop="199dp"
-        android:backgroundTint="@color/blue_02"
-
+        android:drawableLeft="@drawable/firecalorias"
         />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/firecalorias"
-        android:layout_marginTop="205dp"
-        android:layout_marginLeft="85dp"
-        android:backgroundTint="@color/blue_02"
-        />
 
-    <ImageButton
-        android:id="@+id/imageButton3"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/balanca"
-        android:layout_marginTop="122dp"
-        android:layout_marginLeft="85dp"
-        android:backgroundTint="@color/blue_02"
-        />
+
 
 </RelativeLayout>
