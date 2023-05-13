@@ -2,6 +2,23 @@
     <!-- Base application theme. -->
     <style name="Base.Theme.FitLife" parent="Theme.Material3.DayNight.NoActionBar">
         <!-- Customize your dark theme here. -->
-        <!-- <item name="colorPrimary">@color/my_dark_primary</item> -->
+        <item name="colorPrimary">@color/blue_03</item>
+        <item name="colorPrimaryVariant">@color/blue_02</item>
+        <item name="colorOnPrimary">@color/black</item>
+        <!-- Secondary brand color. -->
+        <item name="colorSecondary">@color/orange</item>
+        <item name="colorSecondaryVariant">@color/blue_04</item>
+        <item name="colorOnSecondary">@color/black</item>
+        <item name="colorOnBackground">@color/blue_background</item>
+        <!-- Status bar color. -->
+        <item name="android:statusBarColor">?attr/colorPrimaryVariant</item>
+    </style>
+
+    <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
+        <item name="fontFamily">@font/poppins_bold</item>
+        <item name="android:textColor">@color/white</item>
+        <item name="backgroundTint">@color/blue_02</item>
+        <item name="android:background">@drawable/btn_rounded_corner</item>
+
     </style>
 </resources>
