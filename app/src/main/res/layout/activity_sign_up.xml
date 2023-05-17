@@ -1,0 +1,596 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:background="@color/blue_background"
+    >
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="412dp"
+        android:layout_height="?attr/actionBarSize"
+        style="@style/ToolbarStyle"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="?attr/actionBarTheme" />
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="?attr/actionBarSize">
+
+        <ImageButton
+            android:id="@+id/imageView"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:background="@android:color/transparent"
+            android:src="@drawable/baseline_arrow_back_ios_24"
+            android:layout_marginStart="34dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <TextView
+            android:id="@+id/textView"
+            android:layout_width="80dp"
+            android:layout_height="36dp"
+            android:text="FitLife"
+            android:textColor="@color/white"
+            android:textSize="25sp"
+            android:layout_marginStart="36dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/imageView"
+            app:layout_constraintTop_toTopOf="parent" />
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginTop="?attr/actionBarSize">
+
+        <androidx.constraintlayout.widget.ConstraintLayout
+
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:padding="24dp">
+
+            <!--NAME LAYOUT-->
+
+            <TextView
+                android:id="@+id/emptyFieldName"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <TextView
+                android:id="@+id/name_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Nome"
+                app:layout_constraintStart_toEndOf="@+id/emptyFieldName"
+                app:layout_constraintTop_toTopOf="@+id/emptyFieldName" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/name_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="313dp"
+                android:layout_height="39dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/name_tv">
+
+                <EditText
+                    android:id="@+id/name_edt_text"
+                    style="@style/signup_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="Ex: João Silva" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--EMAIL LAYOUT-->
+            <TextView
+                android:id="@+id/emptyFieldEmail"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/email_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/email_tv" />
+
+            <TextView
+                android:id="@+id/email_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="E-mail"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldEmail"
+                app:layout_constraintTop_toBottomOf="@+id/name_cardview" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/email_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="313dp"
+                android:layout_height="39dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/email_tv">
+
+                <EditText
+                    android:id="@+id/email_edt_text"
+                    style="@style/signup_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:hint="Ex: joao@gmail.com" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--PASSWORD LAYOUT-->
+            <TextView
+                android:id="@+id/emptyFieldPassword"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/password_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/password_tv" />
+
+            <TextView
+                android:id="@+id/password_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Senha"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldPassword"
+                app:layout_constraintTop_toBottomOf="@+id/email_cardview"
+
+                />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/password_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="313dp"
+                android:layout_height="39dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/password_tv">
+
+                <EditText
+                    android:id="@+id/edt_text_password"
+                    style="@style/signup_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:background="@android:color/transparent"
+                    android:password="true"
+                    android:hint="********" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--PASSWORD WARNING-->
+            <TextView
+                android:id="@+id/warning_tv"
+                android:layout_width="313dp"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="5dp"
+                android:text="A senha precisa conter no mínimo 8 digitos, letras maiúsculas e números"
+                android:textColor="#810404"
+                android:textSize="11sp"
+                android:visibility="gone"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/password_cardview" />
+
+            <!--DATE LAYOUT-->
+            <TextView
+                android:id="@+id/emptyFieldDate"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/date_headline_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/date_headline_tv" />
+
+            <TextView
+                android:id="@+id/date_headline_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="54dp"
+                android:text="Data de Nascimento"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldDate"
+                app:layout_constraintTop_toBottomOf="@+id/password_cardview"
+
+                />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/data_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="153dp"
+                android:layout_height="39dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/date_headline_tv">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/date_tv"
+                        style="@style/signup_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="03/10/1990"
+                        android:inputType="none"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/data_btn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageButton
+                        android:id="@+id/data_btn"
+                        android:layout_width="21dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@color/white"
+                        android:src="@drawable/baseline_calendar_today_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--WEIGHT LAYOUT-->
+            <TextView
+                android:id="@+id/emptyFieldWeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/weight_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/weight_tv" />
+
+            <TextView
+                android:id="@+id/weight_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Peso Atual"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldWeight"
+                app:layout_constraintTop_toBottomOf="@+id/data_cardview"
+
+                />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weight_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="95dp"
+                android:layout_height="38dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weight_tv">
+
+                <EditText
+                    android:id="@+id/weight_edt_text"
+                    style="@style/signup_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Ex: 72,5"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <!--KG-->
+            <TextView
+                android:id="@+id/textView2"
+                style="@style/signup_kg_cm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="kg"
+                app:layout_constraintBottom_toBottomOf="@+id/weight_cardview"
+                app:layout_constraintStart_toEndOf="@id/weight_cardview"
+                app:layout_constraintTop_toTopOf="@+id/weight_cardview" />
+
+            <!--HEIGHT LAYOUT-->
+
+            <TextView
+                android:id="@+id/emptyFieldHeight"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@+id/height_tv"
+                app:layout_constraintStart_toStartOf="@+id/altura_cardview"
+                app:layout_constraintTop_toTopOf="@+id/height_tv" />
+
+            <TextView
+                android:id="@+id/height_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Altura"
+                app:layout_constraintBottom_toTopOf="@+id/altura_cardview"
+                app:layout_constraintStart_toEndOf="@+id/emptyFieldHeight" />
+
+            <!--CM-->
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/altura_cardview"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="95dp"
+                android:layout_height="38dp"
+                android:layout_marginStart="69dp"
+                android:layout_marginTop="4dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintBottom_toBottomOf="@+id/weight_cardview"
+                app:layout_constraintStart_toEndOf="@+id/weight_cardview"
+                app:layout_constraintTop_toTopOf="@+id/weight_cardview"
+                app:layout_constraintVertical_bias="1.0">
+
+                <EditText
+                    android:id="@+id/height_edt_text"
+                    style="@style/signup_desc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginStart="18dp"
+                    android:background="@android:color/transparent"
+                    android:hint="Ex: 160"
+                    android:inputType="numberDecimal" />
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                style="@style/signup_kg_cm"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="cm"
+                app:layout_constraintBottom_toBottomOf="@+id/altura_cardview"
+                app:layout_constraintStart_toEndOf="@id/altura_cardview"
+                app:layout_constraintTop_toTopOf="@+id/altura_cardview" />
+
+            <!--GENDER LAYOUT-->
+
+            <TextView
+                android:id="@+id/emptyFieldGender"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/gender_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/gender_tv" />
+
+            <TextView
+                android:id="@+id/gender_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Sexo"
+                app:layout_constraintStart_toEndOf="@+id/emptyFieldGender"
+                app:layout_constraintTop_toBottomOf="@+id/weight_cardview" />
+
+            <RadioGroup
+                android:id="@+id/gender_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/gender_tv">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_female"
+                    style="@style/signup_check"
+                    android:layout_width="95dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_group_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Mulher" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_male"
+                    style="@style/signup_check"
+                    android:layout_width="95dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_group_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Homem" />
+            </RadioGroup>
+
+
+            <!-- GOAL -->
+            <TextView
+                android:id="@+id/emptyFieldGoal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/goal_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/goal_tv" />
+
+            <TextView
+                android:id="@+id/goal_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Objetivo"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldGoal"
+                app:layout_constraintTop_toBottomOf="@+id/gender_radio_group" />
+
+            <RadioGroup
+                android:id="@+id/rg_goal"
+                android:layout_width="wrap_content"
+                android:layout_height="38dp"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/goal_tv">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_keep"
+                    style="@style/signup_check"
+                    android:layout_width="95dp"
+                    android:layout_height="38dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_group_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Manter" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_gain"
+                    style="@style/signup_check"
+                    android:layout_width="95dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_group_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Ganhar" />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/rb_lose"
+                    style="@style/signup_check"
+                    android:layout_width="95dp"
+                    android:layout_height="38dp"
+                    android:layout_marginStart="14dp"
+                    android:layout_weight="1"
+                    android:background="@drawable/radio_group_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Emagrecer" />
+            </RadioGroup>
+
+
+            <!-- WEEKLY -->
+            <TextView
+                android:id="@+id/emptyFieldWeeklyExercise"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/weekly_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/weekly_tv" />
+
+            <TextView
+                android:id="@+id/weekly_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Exercício físico semanal"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldWeeklyExercise"
+                app:layout_constraintTop_toBottomOf="@+id/rg_goal" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/weekly_card"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="189dp"
+                android:layout_height="38dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/weekly_tv">
+
+                <Spinner
+                    android:id="@+id/spinner_weekly"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/WeeklyExercise" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+            <TextView
+                android:id="@+id/emptyFieldExerciseType"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="* "
+                android:textColor="#810404"
+                android:visibility="gone"
+                app:layout_constraintBottom_toBottomOf="@id/exercise_tv"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="@id/exercise_tv" />
+
+            <TextView
+                android:id="@+id/exercise_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Tipo de exercício praticado"
+                app:layout_constraintStart_toEndOf="@id/emptyFieldExerciseType"
+                app:layout_constraintTop_toBottomOf="@+id/weekly_card" />
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/exercise"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="189dp"
+                android:layout_height="38dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/exercise_tv">
+
+                <Spinner
+                    android:id="@+id/spinner_exercise_type"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/ExerciseType" />
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <androidx.appcompat.widget.AppCompatButton
+                android:id="@+id/save_btn"
+                style="@style/ButtonPrimary"
+                android:layout_width="308dp"
+                android:layout_height="38dp"
+                android:layout_marginTop="34dp"
+                android:background="@drawable/save_button_layout"
+                android:backgroundTint="@color/blue_02"
+                android:text="Salvar"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/exercise" />
+
+
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+    </ScrollView>
+
+
+</RelativeLayout>
