@@ -9,31 +9,60 @@ import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
 import android.widget.EditText
+import android.widget.ImageView
 import android.widget.RadioButton
 import android.widget.RadioGroup
 import android.widget.Spinner
 import android.widget.TextView
+import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
+import androidx.lifecycle.LifecycleOwner
+import androidx.room.Room
+import com.app.fitlife.data.AppDataBase
+import com.app.fitlife.data.User
+import com.app.fitlife.data.UserDao
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Date
 import java.util.Locale
+import androidx.lifecycle.lifecycleScope
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
-class SignUpActivity : AppCompatActivity() {
+class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
+    private lateinit var dao: UserDao
     private var date:String? = null
-    private var selectedDate: Date? = null
-    var userSelectionWeek : String =""
-    var userSelectionType : String = ""
+    var SpinnerWeek : String =""
+    var SpinnerType : String = ""
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
+
+        val toolbar: Toolbar = findViewById(R.id.toolbar)
+
+        val imageView = findViewById<ImageView>(R.id.imageView)
+        imageView.setOnClickListener {
+            showAlertDialog()
+        }
+
+        val db = Room.databaseBuilder(
+            applicationContext,
+            AppDataBase::class.java, "database-fitlife"
+        ).build()
+
+        dao = db.userDao()
+
 
 
         //Calendario
@@ -45,7 +74,6 @@ class SignUpActivity : AppCompatActivity() {
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
-            selectedDate = calendarBox.time
             updateText(calendarBox)
         }
         dataButton.setOnClickListener {
@@ -122,7 +150,7 @@ class SignUpActivity : AppCompatActivity() {
         spinnerWeek.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedWeeklyExercise = parent?.getItemAtPosition(position).toString()
-                userSelectionWeek = selectedWeeklyExercise
+                SpinnerWeek = selectedWeeklyExercise
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -138,16 +166,14 @@ class SignUpActivity : AppCompatActivity() {
             R.array.ExerciseType,
             android.R.layout.simple_spinner_item
         ).also { adapter ->
-            // Specify the layout to use when the list of choices appears
             adapter.setDropDownViewResource(android.R.layout.simple_spinner_dropdown_item)
-            // Apply the adapter to the spinner
             spinnerExercise.adapter = adapter
         }
 
         spinnerExercise.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedExerciseType = parent?.getItemAtPosition(position).toString()
-                userSelectionType = selectedExerciseType
+                SpinnerType = selectedExerciseType
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -172,21 +198,53 @@ class SignUpActivity : AppCompatActivity() {
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
+        val gender = if(radioButtonFemale.isSelected) "Feminino" else "Masculino"
+        val goal = if (radioButtonKeep.isSelected) "Manter" else if(radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
+
 
         saveBtn = findViewById(R.id.save_btn)
 
         saveBtn.setOnClickListener {
-            showEmptyFieldMessage(nameText.isEmpty(), R.id.emptyFieldName)
-            showEmptyFieldMessage(emailText.isEmpty(), R.id.emptyFieldEmail)
-            showEmptyFieldMessage(passwordText.isEmpty(), R.id.emptyFieldPassword)
-            showEmptyFieldMessage(date == null, R.id.emptyFieldDate)
-            showEmptyFieldMessage(weightText.isEmpty(), R.id.emptyFieldWeight)
-            showEmptyFieldMessage(heightText.isEmpty(), R.id.emptyFieldHeight)
-            showEmptyFieldMessage(genderRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGender)
-            showEmptyFieldMessage(goalsRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGoal)
+            val user = User(
+                nameText.toString(),
+                emailText.toString(),
+                passwordText.toString(),
+                date.toString(),
+                weightText.toString(),
+                heightText.toString(),
+                gender,
+                goal,
+                SpinnerWeek,
+                SpinnerType)
 
 
+            if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
+                user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
+                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()){
+                if(isPasswordValid(passwordText.toString())) {
 
+                    lifecycleScope.launch {
+                        withContext(Dispatchers.IO) {
+                            dao.insert(user)
+                        }
+                    }
+
+                }else if (!isPasswordValid(passwordText.toString())){
+                    passwordWarning.visibility = View.VISIBLE
+                    Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
+                }
+
+            } else{
+                showEmptyFieldMessage(nameText.isEmpty(), R.id.emptyFieldName)
+                showEmptyFieldMessage(emailText.isEmpty(), R.id.emptyFieldEmail)
+                showEmptyFieldMessage(passwordText.isEmpty(), R.id.emptyFieldPassword)
+                showEmptyFieldMessage(date == null, R.id.emptyFieldDate)
+                showEmptyFieldMessage(weightText.isEmpty(), R.id.emptyFieldWeight)
+                showEmptyFieldMessage(heightText.isEmpty(), R.id.emptyFieldHeight)
+                showEmptyFieldMessage(genderRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGender)
+                showEmptyFieldMessage(goalsRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGoal)
+
+            }
         }
 
     }
@@ -241,6 +299,21 @@ class SignUpActivity : AppCompatActivity() {
     }
 
 
+    private fun isPasswordValid(password: String): Boolean {
+        val hasUpperCase = password.any {
+            it.isUpperCase()
+        }
+        val hasLowerCase = password.any {
+            it.isLowerCase()
+        }
+        val hasDigit = password.any {
+            it.isDigit()
+        }
+        val isLengthValid = password.length >= 8
+
+        return hasUpperCase && hasLowerCase && hasDigit && isLengthValid
+    }
+
     private fun showEmptyFieldMessage(isEmpty: Boolean, emptyFieldId: Int) {
         val emptyField = findViewById<TextView>(emptyFieldId)
         if (isEmpty) {
@@ -258,5 +331,17 @@ class SignUpActivity : AppCompatActivity() {
         dataTextView.setTextColor(Color.BLACK)
         val dateString = simple.format(calendar.time)
         date = dateString
+    }
+
+    private fun showAlertDialog() {
+        val alertDialog = AlertDialog.Builder(this)
+            .setTitle("Tem certeza que deseja sair?")
+            .setMessage("Seus dados não serão salvos.")
+            .setPositiveButton("Sim") { dialog, which ->
+                finish()
+            }
+            .setNegativeButton("Não") { dialog, which -> }
+            .create()
+        alertDialog.show()
     }
 }
