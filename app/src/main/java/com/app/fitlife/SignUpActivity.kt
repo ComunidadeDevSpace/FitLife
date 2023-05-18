@@ -26,12 +26,10 @@ import com.app.fitlife.data.UserDao
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
@@ -216,6 +214,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 goal,
                 SpinnerWeek,
                 SpinnerType)
+
+            val intent = TelaPrincipalBotoesCalculo.start(this, user)
+            startActivity(intent)
 
 
             if (user.name.isNotEmpty() && user.email.isNotEmpty() &&

@@ -16,6 +16,9 @@
             android:name=".MainActivity"
             android:exported="false" />
         <activity
+            android:name=".TelaPrincipalBotoesCalculo"
+            android:exported="false" />
+        <activity
             android:name=".SignUpActivity"
             android:exported="true">
             <intent-filter>
@@ -24,6 +27,7 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+
     </application>
 
 </manifest>

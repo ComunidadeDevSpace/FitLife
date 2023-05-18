@@ -25,7 +25,6 @@
         <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/blue_02</item>
-<!--        <item name="android:background">@drawable/btn_rounded_corner</item>-->
 
     </style>
 
