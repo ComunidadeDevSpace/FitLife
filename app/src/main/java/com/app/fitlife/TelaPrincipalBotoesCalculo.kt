@@ -14,6 +14,16 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.toolbar))
 
+        //Habilitando a tela principal quando clica no botão IMC
+        val fakedata = FakeData().getData()
+        val btnIMC : Button = findViewById(R.id.btnIMC)
+        btnIMC.setOnClickListener{
+            val intent = Intent(this, ResultadoIMC::class.java).apply {
+                putExtra("EXTRA_RESULT", fakedata)
+            }
+            startActivity(intent)
+        }
+
         // Habilitar botão de voltar no ToolBar
         supportActionBar?.setHomeButtonEnabled(true)
         // Mostrar botão de voltar no ToolBar
