@@ -32,24 +32,23 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
         //Habilitando a tela principal quando clica no botão IMC
-        val fakedata = FakeData().getData()
+
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
+
+        //Calculo do IMC
+
         val btnIMC : Button = findViewById(R.id.btnIMC)
         btnIMC.setOnClickListener{
+            val weight = userData.weight
+            val height = userData.height
+            val result = weight.toFloat() / (height.toFloat() * height.toFloat())
             val intent = Intent(this, ResultadoIMC::class.java).apply {
-                putExtra("EXTRA_RESULT", fakedata)
+                putExtra("EXTRA_RESULT", result)
+                println(result)
             }
             startActivity(intent)
         }
 
-         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
-        if(userData.gender == "Masculino") {
-            val weight = userData.weight.toFloat() * 13.8
-            val height = userData.height.toFloat() * 5
-            //val age = userData.birth.toFloat() * 6.8
-            //val result = 66.5 + weight + height - age
-            println(userData.birth)
-
-        }
 //        println(userData)
 //        lifecycleScope.launch{
 //           val user = dao.getUserByEmail(userData.email)
@@ -73,14 +72,14 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 ////        dao.getUserByEmail()
 
 
-        val fakeData = FakeData().getData()
-        val btnCalories: Button = findViewById(R.id.btn_calories)
-        btnCalories.setOnClickListener {
-            val intent = Intent(this, CaloriesResult::class.java).apply {
-                putExtra("EXTRA_RESULT", fakeData)
-            }
-            startActivity(intent)
-        }
+//        val fakeData = FakeData().getData()
+//        val btnCalories: Button = findViewById(R.id.btn_calories)
+//        btnCalories.setOnClickListener {
+//            val intent = Intent(this, CaloriesResult::class.java).apply {
+//                putExtra("EXTRA_RESULT", fakeData)
+//            }
+//            startActivity(intent)
+//        }
 
     }
 
