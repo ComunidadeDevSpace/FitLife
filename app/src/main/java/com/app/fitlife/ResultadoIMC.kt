@@ -10,6 +10,7 @@ class ResultadoIMC : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_resultado_imc)
+        setSupportActionBar(findViewById(R.id.toolbar))
 
         /*
         class ResultActivity : AppCompatActivity() {
@@ -40,6 +41,12 @@ class ResultadoIMC : AppCompatActivity() {
         }
 
         tvClassification.text = classificacao
+
+        // Habilitar botão de voltar no ToolBar
+        supportActionBar?.setHomeButtonEnabled(true)
+        // Mostrar botão de voltar no ToolBar
+        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         finish()

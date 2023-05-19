@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     android:orientation="vertical"
     tools:context=".TelaPrincipalBotoesCalculo">
 
@@ -34,10 +35,9 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="116sp"
-        android:text="IMC"
-        android:textSize="14sp"
         android:drawableLeft="@drawable/balanca"
-        />
+        android:text="IMC"
+        android:textSize="14sp" />
 
     <Button
         android:id="@+id/btn_calories"
@@ -46,12 +46,9 @@
         android:layout_height="60dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="199dp"
-        android:text="Calorias"
-        android:textSize="14sp"
         android:drawableLeft="@drawable/firecalorias"
-        />
-
-
+        android:text="Calorias"
+        android:textSize="14sp" />
 
 
 </RelativeLayout>

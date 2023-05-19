@@ -3,6 +3,7 @@
     <style name="ToolbarStyle" parent="@style/Widget.AppCompat.Toolbar">
         <item name="android:fontFamily">@font/poppins_semibold</item>
         <item name="android:gravity">center</item>
+        //alterar
         <item name="android:background">@color/blue_01</item>
     </style>
 

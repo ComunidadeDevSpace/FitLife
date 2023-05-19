@@ -56,11 +56,6 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 //        }
 
 
-        // Habilitar botão de voltar no ToolBar
-        supportActionBar?.setHomeButtonEnabled(true)
-        // Mostrar botão de voltar no ToolBar
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
         // Recover data from the DataRoom
 
 //        val db = Room.databaseBuilder(
@@ -90,10 +85,17 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         return true
     }
 
+    // Opções do menu
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.editar_perfil -> {
-                //colocar aqui para abrir tela de cadastro
+            R.id.menu_editar_perfil -> {
+                val intent = Intent(this, SignUpActivity::class.java)
+                startActivity(intent)
+                true
+            }
+            R.id.menu_logout -> {
+                val intent = Intent(this, MainActivity::class.java)
+                startActivity(intent)
                 true
             }
             else -> super.onOptionsItemSelected(item)
