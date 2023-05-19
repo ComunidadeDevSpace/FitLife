@@ -4,16 +4,30 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="@color/blue_background"
-    tools:context=".CaloriesResult">
+    tools:context=".CaloriesResult"
+    android:orientation="vertical">
 
     <include layout="@layout/toolbar" />
+
+    <TextView
+        android:id="@+id/tv_nome_user"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="16dp"
+        android:hint="Fulano"
+        android:layout_marginLeft="55dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+        />
 
     <TextView
         android:id="@+id/tv_resultado"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:layout_marginLeft="55dp"
         android:text="Sobrepeso e precisa emagrecer"
-        android:textColor="@color/blue_04"
+        android:textColor="@color/black"
         android:textSize="16dp" />
 
 </LinearLayout>

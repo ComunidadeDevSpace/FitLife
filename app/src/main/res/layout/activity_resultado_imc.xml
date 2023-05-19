@@ -11,80 +11,72 @@
     <include layout="@layout/toolbar" />
 
     <TextView
-        android:layout_width="match_parent"
+        android:id="@+id/tv_nome_user"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
-        android:text="Seu IMC é:"
-        android:textAlignment="center"
-        android:textColor="@color/blue_03"
-        android:textStyle="bold" />
+        android:hint="Fulano"
+        android:layout_marginLeft="55dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="20dp"
+
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="seu Índice de Massa Corporea é:"
+        android:textAlignment="textStart"
+        android:layout_marginLeft="55dp"
+        android:textColor="@color/black"
+        />
 
     <TextView
         android:id="@+id/textview_resultado"
-        android:layout_width="match_parent"
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:padding="16dp"
-        android:textAlignment="center"
-        android:textColor="@color/blue_01"
-        android:textSize="38sp"
-        tools:text="27,104" />
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="48sp"
+        tools:hint="27,104"
+        android:layout_marginLeft="100dp"
+        android:maxLength="6"
+        android:background="@drawable/radio_group_text"
+        />
 
     <TextView
         android:id="@+id/textview_classificacao"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="8dp"
-        android:textAlignment="center"
-        android:textColor="@color/blue_01"
-        android:textSize="18sp"
-        tools:text="Classification: Normal" />
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="40dp"
+        tools:hint="Sobrepeso"
+        android:layout_marginLeft="100dp"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_margin="16dp"
+        android:layout_marginStart="85dp"
+        android:textAlignment="textStart"
         android:text="Observe a Tabela Abaixo"
-        android:textColor="@color/blue_01" />
+        android:textColor="@color/black"
+        />
 
     <TextView
-        android:layout_width="wrap_content"
+        android:layout_width="326dp"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="18,5 ou menos: Abaixo Do Peso"
-        android:textColor="@color/blue_02" />
+        android:layout_marginLeft="55dp"
+        android:background="@drawable/radio_group_text"
+        android:text="Abaixo Do Peso                                  18,5 ou menos
+Normal                                              Entre 18,5 E 24,9
+Obesidade Grau I                            Entre 30,0 E 34,9
+Obesidade Grau II                           Entre 35,0 e 39,9
+Obesidade Grau III                                  Acima de 40"
+        android:textColor="@color/black" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Entre 18,5 E 24,9: Normal"
-        android:textColor="@color/blue_02" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Entre 25,0 E 29,9: Sobrepeso"
-        android:textColor="@color/blue_02" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Entre 30,0 E 34,9: Obesidade Grau I"
-        android:textColor="@color/blue_02" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Entre 35,0 e 39,9: Obesidade Grau II"
-        android:textColor="@color/blue_02" />
-
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
-        android:text="Acima de 40: Obesidade Grau III"
-        android:textColor="@color/blue_02" />
 </LinearLayout>

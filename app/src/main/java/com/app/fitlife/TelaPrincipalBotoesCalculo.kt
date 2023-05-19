@@ -8,6 +8,7 @@ import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
+import android.widget.TextView
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
@@ -30,6 +31,11 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.toolbar))
+
+
+        val userDataNome = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        val nome = findViewById<TextView>(R.id.tv_nome_user)
+        nome.text = userDataNome.name
 
         //Habilitando a tela principal quando clica no botão IMC
 
