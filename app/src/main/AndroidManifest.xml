@@ -18,9 +18,13 @@
             android:theme="@style/Theme.AppCompat.NoActionBar"/>
         <activity
             android:name=".RegisterActivity"
-            android:exported="true" />
+            android:exported="false" />
+      <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
         <activity
-            android:name=".MainActivity_Login" />
+            android:name=".MainActivity_Login"
+            android:exported="false" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
