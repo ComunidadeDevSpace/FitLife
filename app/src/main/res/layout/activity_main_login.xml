@@ -5,21 +5,22 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:padding="16dp"
-    tools:context=".MainActivity_Login">
+    tools:context=".MainActivityLogin">
 
     <TextView
         android:id="@+id/welcomeTextView"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="@color/blue_03"
-        android:textStyle="bold"
         android:text="Bem-vindo ao FitLife"
         android:textSize="24sp"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintBottom_toTopOf="@id/imgLogin"
-        android:layout_marginBottom="32dp" />
+        android:layout_marginBottom="32dp"
+        android:fontFamily="@font/poppins_semibold"
+        />
 
     <ImageView
         android:id="@+id/imgLogin"
@@ -36,12 +37,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:text="E-mail:"
         app:layout_constraintTop_toBottomOf="@id/imgLogin"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        />
 
     <EditText
         android:id="@+id/loginEditText"
@@ -59,12 +61,13 @@
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:textColor="@color/black"
-        android:textStyle="bold"
         android:text="Senha:"
         app:layout_constraintTop_toBottomOf="@id/loginEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_medium"
+        />
 
     <EditText
         android:id="@+id/passwordEditText"
@@ -87,17 +90,21 @@
         app:layout_constraintTop_toBottomOf="@id/passwordEditText"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        />
 
     <Button
         android:id="@+id/registerButton"
         style="@style/ButtonPrimary"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Registre aqui"
+        android:text="Registre-se aqui"
         app:layout_constraintTop_toBottomOf="@id/loginButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        android:layout_marginTop="16dp" />
+        android:layout_marginTop="16dp"
+        android:fontFamily="@font/poppins_bold"
+        />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

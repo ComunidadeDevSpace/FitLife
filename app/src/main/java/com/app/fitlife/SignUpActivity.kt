@@ -1,6 +1,7 @@
 package com.app.fitlife
 
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -26,12 +27,10 @@ import com.app.fitlife.data.UserDao
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
-import java.util.Date
 import java.util.Locale
 import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
@@ -49,7 +48,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         imageView.setOnClickListener {
@@ -205,6 +203,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         saveBtn = findViewById(R.id.save_btn)
 
         saveBtn.setOnClickListener {
+
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
@@ -216,6 +215,13 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 goal,
                 SpinnerWeek,
                 SpinnerType)
+
+            lifecycleScope.launch{
+                dao.insert(user)
+            }
+
+            val intent = Intent(this, MainActivityLogin::class.java)
+            startActivity(intent)
 
 
             if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
