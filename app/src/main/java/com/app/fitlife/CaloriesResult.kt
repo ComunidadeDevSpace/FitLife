@@ -20,7 +20,7 @@ class CaloriesResult : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calories_result)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
         val userDataNome = intent?.getSerializableExtra("EXTRA_RESULT") as User
         val nome = findViewById<TextView>(R.id.tv_nome_user)
