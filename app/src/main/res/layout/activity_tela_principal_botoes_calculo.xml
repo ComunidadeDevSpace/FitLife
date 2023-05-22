@@ -18,7 +18,9 @@
         android:layout_marginTop="75dp"
         android:hint="Olá Nome usuário"
         android:textAlignment="textStart"
-        android:textSize="18sp" />
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_regular"
+        />
 
     <TextView
         android:layout_width="match_parent"
@@ -27,7 +29,9 @@
         android:layout_marginTop="95dp"
         android:text="Escolha uma das opções abaixo:"
         android:textAlignment="textStart"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        />
 
     <Button
         android:id="@+id/btnIMC"
@@ -38,7 +42,9 @@
         android:layout_marginTop="116sp"
         android:drawableLeft="@drawable/balanca"
         android:text="IMC"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        />
 
     <Button
         android:id="@+id/btn_calories"
@@ -49,7 +55,9 @@
         android:layout_marginTop="199dp"
         android:drawableLeft="@drawable/firecalorias"
         android:text="Calorias"
-        android:textSize="14sp" />
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_regular"
+        />
 
 
 </RelativeLayout>

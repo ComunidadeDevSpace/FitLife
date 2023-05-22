@@ -19,6 +19,7 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20dp"
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -28,6 +29,8 @@
         android:layout_marginLeft="55dp"
         android:text="Sobrepeso e precisa emagrecer"
         android:textColor="@color/black"
-        android:textSize="16dp" />
+        android:textSize="16dp"
+        android:fontFamily="@font/poppins_regular"
+        />
 
 </LinearLayout>

@@ -33,21 +33,22 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         setSupportActionBar(findViewById(R.id.toolbar))
 
 
-        val userDataNome = intent?.getSerializableExtra("EXTRA_RESULT") as User
-        val nome = findViewById<TextView>(R.id.tv_nome_user)
-        nome.text = userDataNome.name
+        //val userDataNome = intent?.getSerializableExtra("EXTRA_RESULT") as User
 
         //Habilitando a tela principal quando clica no botão IMC
 
         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        val nome = findViewById<TextView>(R.id.tv_nome_user)
+        nome.text = userData.name
+
 
         //Calculo do IMC
 
         val btnIMC : Button = findViewById(R.id.btnIMC)
         btnIMC.setOnClickListener{
-            val weight = userData.weight
-            val height = userData.height
-            val result = weight.toFloat() / (height.toFloat() * height.toFloat())
+            val weight = userData.weight.toFloat()
+            val height = userData.height.toFloat()
+            val result = weight / (height * height)
             val intent = Intent(this, ResultadoIMC::class.java).apply {
                 putExtra("EXTRA_RESULT", result)
                 println(result)

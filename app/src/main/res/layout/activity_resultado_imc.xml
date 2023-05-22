@@ -20,7 +20,7 @@
         android:textAlignment="textStart"
         android:textColor="@color/black"
         android:textSize="20dp"
-
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -30,6 +30,7 @@
         android:textAlignment="textStart"
         android:layout_marginLeft="55dp"
         android:textColor="@color/black"
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -44,6 +45,7 @@
         android:layout_marginLeft="100dp"
         android:maxLength="6"
         android:background="@drawable/radio_group_text"
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -55,6 +57,20 @@
         android:textSize="40dp"
         tools:hint="Sobrepeso"
         android:layout_marginLeft="100dp"
+        android:fontFamily="@font/poppins_regular"
+        />
+
+    <TextView
+        android:id="@+id/tv_classificacao_desc"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="14dp"
+        tools:hint="Ele é, na verdade, uma pré-obesidade e muitas pessoas nessa faixa já apresentam doenças associadas, como diabetes e hipertensão. Importante rever hábitos e buscar ajuda antes de, por uma série de fatores, entrar na faixa da obesidade pra valer."
+        android:layout_marginLeft="55dp"
+        android:layout_marginRight="55dp"
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -64,6 +80,7 @@
         android:textAlignment="textStart"
         android:text="Observe a Tabela Abaixo"
         android:textColor="@color/black"
+        android:fontFamily="@font/poppins_regular"
         />
 
     <TextView
@@ -71,12 +88,14 @@
         android:layout_height="wrap_content"
         android:layout_marginLeft="55dp"
         android:background="@drawable/radio_group_text"
-        android:text="Abaixo Do Peso                                  18,5 ou menos
-Normal                                              Entre 18,5 E 24,9
-Obesidade Grau I                            Entre 30,0 E 34,9
-Obesidade Grau II                           Entre 35,0 e 39,9
-Obesidade Grau III                                  Acima de 40"
-        android:textColor="@color/black" />
+        android:text="Abaixo Do Peso                         18,5 ou menos
+Normal                                      Entre 18,5 E 24,9
+Obesidade Grau I                  Entre 30,0 E 34,9
+Obesidade Grau II                 Entre 35,0 e 39,9
+Obesidade Grau III                      Acima de 40"
+        android:textColor="@color/black"
+        android:fontFamily="@font/poppins_regular"
+        />
 
 
 </LinearLayout>
