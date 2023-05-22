@@ -7,7 +7,7 @@
     tools:context=".CaloriesResult"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_sign_up" />
 
     <TextView
         android:id="@+id/tv_nome_user"

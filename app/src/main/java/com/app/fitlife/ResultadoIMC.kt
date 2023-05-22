@@ -22,7 +22,7 @@ class ResultadoIMC : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_resultado_imc)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
         val nome = findViewById<TextView>(R.id.tv_nome_user)

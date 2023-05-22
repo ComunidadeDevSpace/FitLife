@@ -47,7 +47,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
-        val toolbar: Toolbar = findViewById(R.id.toolbar)
 
         val imageView = findViewById<ImageView>(R.id.imageView)
         imageView.setOnClickListener {
