@@ -1,5 +1,6 @@
 package com.app.fitlife
 
+import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -7,8 +8,11 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import com.app.fitlife.data.User
 
-class MainActivity_Login : AppCompatActivity() {
+class MainActivityLogin : AppCompatActivity() {
+
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_login)
@@ -25,7 +29,7 @@ class MainActivity_Login : AppCompatActivity() {
                 val welcomeTextView: TextView = findViewById(R.id.welcomeTextView)
                 welcomeTextView.text = "Bem-vindo, $login!"
 
-                val intent = Intent(this,HomeActivity::class.java)
+                val intent = Intent(this,TelaPrincipalBotoesCalculo::class.java)
                 startActivity(intent)
             } else {
                 Toast.makeText(this, "Credenciais inválidas. Tente novamente.", Toast.LENGTH_SHORT).show()
@@ -33,7 +37,7 @@ class MainActivity_Login : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val intent = Intent(this, RegisterActivity::class.java)
+            val intent = Intent(this, SignUpActivity::class.java)
             startActivity(intent)
         }
     }

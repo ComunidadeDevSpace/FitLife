@@ -75,7 +75,9 @@
                 android:layout_height="wrap_content"
                 android:text="Nome"
                 app:layout_constraintStart_toEndOf="@+id/emptyFieldName"
-                app:layout_constraintTop_toTopOf="@+id/emptyFieldName" />
+                app:layout_constraintTop_toTopOf="@+id/emptyFieldName"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/name_cardview"
@@ -115,7 +117,9 @@
                 android:layout_marginTop="19dp"
                 android:text="E-mail"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldEmail"
-                app:layout_constraintTop_toBottomOf="@+id/name_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/name_cardview"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/email_cardview"
@@ -156,7 +160,7 @@
                 android:text="Senha"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldPassword"
                 app:layout_constraintTop_toBottomOf="@+id/email_cardview"
-
+                android:fontFamily="@font/poppins_medium"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -189,7 +193,9 @@
                 android:textSize="11sp"
                 android:visibility="gone"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/password_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/password_cardview"
+                android:fontFamily="@font/poppins_regular"
+                />
 
             <!--DATE LAYOUT-->
             <TextView
@@ -212,7 +218,7 @@
                 android:text="Data de Nascimento"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldDate"
                 app:layout_constraintTop_toBottomOf="@+id/password_cardview"
-
+                android:fontFamily="@font/poppins_medium"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -276,7 +282,7 @@
                 android:text="Peso Atual"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldWeight"
                 app:layout_constraintTop_toBottomOf="@+id/data_cardview"
-
+                android:fontFamily="@font/poppins_medium"
                 />
 
             <com.google.android.material.card.MaterialCardView
@@ -308,7 +314,9 @@
                 android:text="kg"
                 app:layout_constraintBottom_toBottomOf="@+id/weight_cardview"
                 app:layout_constraintStart_toEndOf="@id/weight_cardview"
-                app:layout_constraintTop_toTopOf="@+id/weight_cardview" />
+                app:layout_constraintTop_toTopOf="@+id/weight_cardview"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <!--HEIGHT LAYOUT-->
 
@@ -330,7 +338,9 @@
                 android:layout_height="wrap_content"
                 android:text="Altura"
                 app:layout_constraintBottom_toTopOf="@+id/altura_cardview"
-                app:layout_constraintStart_toEndOf="@+id/emptyFieldHeight" />
+                app:layout_constraintStart_toEndOf="@+id/emptyFieldHeight"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <!--CM-->
 
@@ -365,7 +375,9 @@
                 android:text="cm"
                 app:layout_constraintBottom_toBottomOf="@+id/altura_cardview"
                 app:layout_constraintStart_toEndOf="@id/altura_cardview"
-                app:layout_constraintTop_toTopOf="@+id/altura_cardview" />
+                app:layout_constraintTop_toTopOf="@+id/altura_cardview"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <!--GENDER LAYOUT-->
 
@@ -378,7 +390,8 @@
                 android:visibility="gone"
                 app:layout_constraintBottom_toBottomOf="@id/gender_tv"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toTopOf="@+id/gender_tv" />
+                app:layout_constraintTop_toTopOf="@+id/gender_tv"
+                />
 
             <TextView
                 android:id="@+id/gender_tv"
@@ -388,7 +401,9 @@
                 android:layout_marginTop="19dp"
                 android:text="Sexo"
                 app:layout_constraintStart_toEndOf="@+id/emptyFieldGender"
-                app:layout_constraintTop_toBottomOf="@+id/weight_cardview" />
+                app:layout_constraintTop_toBottomOf="@+id/weight_cardview"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <RadioGroup
                 android:id="@+id/gender_radio_group"
@@ -445,7 +460,9 @@
                 android:layout_marginTop="19dp"
                 android:text="Objetivo"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldGoal"
-                app:layout_constraintTop_toBottomOf="@+id/gender_radio_group" />
+                app:layout_constraintTop_toBottomOf="@+id/gender_radio_group"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <RadioGroup
                 android:id="@+id/rg_goal"
@@ -515,7 +532,9 @@
                 android:layout_marginTop="19dp"
                 android:text="Exercício físico semanal"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldWeeklyExercise"
-                app:layout_constraintTop_toBottomOf="@+id/rg_goal" />
+                app:layout_constraintTop_toBottomOf="@+id/rg_goal"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/weekly_card"
@@ -554,7 +573,9 @@
                 android:layout_marginTop="19dp"
                 android:text="Tipo de exercício praticado"
                 app:layout_constraintStart_toEndOf="@id/emptyFieldExerciseType"
-                app:layout_constraintTop_toBottomOf="@+id/weekly_card" />
+                app:layout_constraintTop_toBottomOf="@+id/weekly_card"
+                android:fontFamily="@font/poppins_medium"
+                />
 
             <com.google.android.material.card.MaterialCardView
                 android:id="@+id/exercise"

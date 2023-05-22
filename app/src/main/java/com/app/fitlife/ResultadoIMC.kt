@@ -37,7 +37,6 @@ class ResultadoIMC : AppCompatActivity() {
 
 
         val result = intent.getFloatExtra("EXTRA_RESULT", 0.1f)
-        println(result)
 
 
         tvResult.text = result.toString()

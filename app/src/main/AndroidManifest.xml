@@ -23,12 +23,21 @@
             android:name=".SignUpActivity"
             android:exported="false" />
         <activity
-            android:name=".MainActivity_Login"
+            android:name=".TelaPrincipalBotoesCalculo"
+            android:exported="false" />
+        <activity
+            android:name=".ResultadoIMC"
+            android:exported="false" />
+        <activity
+            android:name=".CaloriesResult"
+            android:exported="false" />
+        <activity
+            android:name=".MainActivityLogin"
             android:exported="false" />
         <activity
             android:name=".SplashScreen"
             android:exported="true"
-            android:theme="@style/Theme.App.Starting">
+            android:theme="@style/Theme.FitLife">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
