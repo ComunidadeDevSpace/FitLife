@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".TelaPrincipalBotoesCalculo">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_tela_principal" />
 
     <TextView
         android:id="@+id/tv_nome_user"

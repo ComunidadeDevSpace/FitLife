@@ -7,10 +7,10 @@
     android:background="@color/blue_background"
     >
     <androidx.appcompat.widget.Toolbar
-        android:id="@+id/toolbar"
+        android:id="@+id/toolbar_sign_up"
         android:layout_width="412dp"
         android:layout_height="?attr/actionBarSize"
-        style="@style/ToolbarStyle"
+        style="@style/ToolbarStyle_sign_up"
         android:minHeight="?attr/actionBarSize"
         android:theme="?attr/actionBarTheme" />
 
@@ -24,7 +24,7 @@
             android:layout_height="wrap_content"
             android:background="@android:color/transparent"
             android:src="@drawable/baseline_arrow_back_ios_24"
-            android:layout_marginStart="34dp"
+            android:layout_marginStart="24dp"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent" />
@@ -35,8 +35,8 @@
             android:layout_height="36dp"
             android:text="FitLife"
             android:textColor="@color/white"
-            android:textSize="25sp"
-            android:layout_marginStart="36dp"
+            android:textSize="22sp"
+            android:layout_marginStart="26dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintStart_toEndOf="@+id/imageView"

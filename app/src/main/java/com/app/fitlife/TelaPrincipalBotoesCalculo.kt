@@ -32,7 +32,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
 
         //Recover data from the DataRoom

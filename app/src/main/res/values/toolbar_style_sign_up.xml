@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <style name="ToolbarStyle_sign_up" parent="@style/Widget.AppCompat.Toolbar">
+        <item name="android:fontFamily">@font/poppins_semibold</item>
+        <item name="android:gravity">center</item>
+        <item name="android:background">@color/blue_01</item>
+    </style>
+
+</resources>

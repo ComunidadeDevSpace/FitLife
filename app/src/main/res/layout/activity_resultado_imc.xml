@@ -8,7 +8,7 @@
     android:orientation="vertical"
     tools:context=".ResultadoIMC">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_sign_up" />
 
     <TextView
         android:id="@+id/tv_nome_user"
