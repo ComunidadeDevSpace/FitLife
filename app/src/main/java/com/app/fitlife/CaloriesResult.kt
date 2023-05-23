@@ -5,13 +5,14 @@ import android.os.Bundle
 import android.widget.TextView
 
 class CaloriesResult : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_calories_result)
 
-        val tvResult : TextView = findViewById(R.id.tv_resultado)
+        val tvResult : TextView = findViewById(R.id.tv_result)
 
-        val result = intent.getFloatExtra("EXTRA_RESULT", 0.1f)
+        val result = intent.getDoubleExtra("EXTRA_RESULT", 0.1)
         tvResult.text = result.toString()
 
     }

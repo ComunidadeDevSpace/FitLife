@@ -2,19 +2,17 @@ package com.app.fitlife
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
 import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
-import androidx.core.content.ContextCompat.startActivity
-import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
-import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
-import com.app.fitlife.data.UserDao
-import kotlinx.coroutines.launch
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 class TelaPrincipalBotoesCalculo : AppCompatActivity() {
     companion object{
@@ -24,63 +22,32 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             }
         }
     }
-    private lateinit var dao: UserDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.toolbar))
-
         //Habilitando a tela principal quando clica no botão IMC
-        val fakedata = FakeData().getData()
-        val btnIMC : Button = findViewById(R.id.btnIMC)
-        btnIMC.setOnClickListener{
-            val intent = Intent(this, ResultadoIMC::class.java).apply {
-                putExtra("EXTRA_RESULT", fakedata)
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        val btnCalories: Button = findViewById(R.id.btn_calories)
+        btnCalories.setOnClickListener {
+             if(userData.gender == "Masculino") {
+                val intent = Intent(this, CaloriesResult::class.java).apply {
+                    putExtra("EXTRA_RESULT", caloriesMenCalc(userData))
+                }
+                 startActivity(intent)
+            } else if(userData.gender == "Feminino") {
+                val intent = Intent(this, CaloriesResult::class.java).apply {
+                    putExtra("EXTRA_RESULT", caloriesWomanCalc(userData))
+                }
+                 startActivity(intent)
             }
-            startActivity(intent)
         }
-
-         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
-        if(userData.gender == "Masculino") {
-            val weight = userData.weight.toFloat() * 13.8
-            val height = userData.height.toFloat() * 5
-            //val age = userData.birth.toFloat() * 6.8
-            //val result = 66.5 + weight + height - age
-            println(userData.birth)
-
-        }
-//        println(userData)
-//        lifecycleScope.launch{
-//           val user = dao.getUserByEmail(userData.email)
-//            println(user)
-//        }
-
 
         // Habilitar botão de voltar no ToolBar
         supportActionBar?.setHomeButtonEnabled(true)
         // Mostrar botão de voltar no ToolBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
-
-        // Recover data from the DataRoom
-
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            AppDataBase::class.java, "database-fitlife"
-//        ).build()
-//
-//        dao = db.userDao()
-////        dao.getUserByEmail()
-
-
-        val fakeData = FakeData().getData()
-        val btnCalories: Button = findViewById(R.id.btn_calories)
-        btnCalories.setOnClickListener {
-            val intent = Intent(this, CaloriesResult::class.java).apply {
-                putExtra("EXTRA_RESULT", fakeData)
-            }
-            startActivity(intent)
-        }
 
     }
 
@@ -90,7 +57,6 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         inflater.inflate(R.menu.menu_tela_principal, menu)
         return true
     }
-
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.editar_perfil -> {
@@ -102,14 +68,27 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
     }
 
+    private fun ageCalculate(user: User): Int {
+        val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            DateTimeFormatter.ofPattern("dd/MM/yyyy")
+        } else {
+            TODO("VERSION.SDK_INT < O")
+        }
+        val birthDate = LocalDate.parse(user.birth, formatter)
+        val currentDate = LocalDate.now()
+        return Period.between(birthDate, currentDate).years
+    }
+    private fun caloriesMenCalc(user: User): Double {
+        val weight = user.weight.toDouble() * 13.8
+        val height = user.height.toDouble() * 5
+        val age = ageCalculate(user) * 6.8
+        return 66.5 + weight + height - age
+    }
+    private fun caloriesWomanCalc(user: User): Double {
+        val weight = user.weight.toDouble() * 9.6
+        val height = user.height.toDouble() * 5
+        val age = ageCalculate(user) * 4.7
+        return 655.1 + weight + height - age
+    }
 
-
-//    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int) : Float {
-//        val weightConvert = weight.toFloat()
-//        val heightConvert = height.toFloat()
-//        val ageConvert = age.toInt()
-//        val result : Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
-//
-//        return result
-//    }
 }

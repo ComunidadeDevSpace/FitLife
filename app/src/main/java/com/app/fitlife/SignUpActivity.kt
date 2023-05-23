@@ -39,6 +39,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var saveBtn: Button
     private lateinit var dao: UserDao
     private var date:String? = null
+    private var gender:String? = null
     var SpinnerWeek : String =""
     var SpinnerType : String = ""
 
@@ -60,7 +61,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         ).build()
 
         dao = db.userDao()
-
 
 
         //Calendario
@@ -129,7 +129,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         }
 
 
-
         //Spinner
         val spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
         val spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
@@ -145,8 +144,13 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             spinnerWeek.adapter = adapter
         }
 
-        spinnerWeek.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        spinnerWeek.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedWeeklyExercise = parent?.getItemAtPosition(position).toString()
                 SpinnerWeek = selectedWeeklyExercise
             }
@@ -154,7 +158,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 val warning = findViewById<TextView>(R.id.emptyFieldWeeklyExercise)
                 warning.visibility = View.VISIBLE
-                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
         }
@@ -168,8 +173,13 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             spinnerExercise.adapter = adapter
         }
 
-        spinnerExercise.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        spinnerExercise.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedExerciseType = parent?.getItemAtPosition(position).toString()
                 SpinnerType = selectedExerciseType
             }
@@ -177,7 +187,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 val warning = findViewById<TextView>(R.id.emptyFieldExerciseType)
                 warning.visibility = View.VISIBLE
-                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
         }
@@ -190,14 +201,16 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val edtHeight = findViewById<EditText>(R.id.height_edt_text)
 
 
-
         val nameText = edtTextName.text
         val emailText = edtTextEmail.text
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
-        val gender = if(radioButtonFemale.isSelected) "Feminino" else "Masculino"
+        gender = if(radioButtonFemale.isSelected) "Feminino" else "Masculino"
+
+
         val goal = if (radioButtonKeep.isSelected) "Manter" else if(radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
+
 
 
         saveBtn = findViewById(R.id.save_btn)
@@ -210,7 +223,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 date.toString(),
                 weightText.toString(),
                 heightText.toString(),
-                gender,
+                gender.toString(),
                 goal,
                 SpinnerWeek,
                 SpinnerType)
@@ -221,7 +234,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
             if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
                 user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
-                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()){
+                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()
+            ){
                 if(isPasswordValid(passwordText.toString())) {
 
                     lifecycleScope.launch {
