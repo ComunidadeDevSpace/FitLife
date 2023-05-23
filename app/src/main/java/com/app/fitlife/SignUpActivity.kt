@@ -1,4 +1,5 @@
 package com.app.fitlife
+
 import android.app.DatePickerDialog
 import android.content.Intent
 import android.graphics.Color
@@ -31,24 +32,24 @@ import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
-class SignUpActivity : AppCompatActivity(),LifecycleOwner {
+class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
-
 
 
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
     private lateinit var dao: UserDao
-    private var date:String? = null
-    var SpinnerWeek : String =""
-    var SpinnerType : String = ""
+    private var date: String? = null
+    var SpinnerWeek: String = ""
+    var SpinnerType: String = ""
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        // recuperação dos dados no menu editar perfil
         val passwordWarning = findViewById<TextView>(R.id.warning_tv)
         val edtTextName = findViewById<EditText>(R.id.name_edt_text)
         val edtTextEmail = findViewById<EditText>(R.id.email_edt_text)
@@ -60,10 +61,9 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
 
-
-
+        //  função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
-        if (userData != null){
+        if (userData != null) {
             edtTextName.setText(userData?.name)
             edtTextEmail.setText(userData?.email)
             edtTextPassword.setText(userData?.password)
@@ -80,10 +80,6 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         imageView.setOnClickListener {
             showAlertDialog()
         }
-
-
-
-
 
 
         //Calendario
@@ -112,17 +108,10 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         }
 
 
-
-
-
-
-
         //CheckBox Goals
         val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
-
-
 
 
         //Spinner
@@ -141,8 +130,13 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
             spinnerWeek.adapter = adapter
         }
 
-        spinnerWeek.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        spinnerWeek.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedWeeklyExercise = parent?.getItemAtPosition(position).toString()
                 //Guarda a opção escolhida pelo usuario
                 SpinnerWeek = selectedWeeklyExercise
@@ -151,7 +145,8 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 val warning = findViewById<TextView>(R.id.emptyFieldWeeklyExercise)
                 warning.visibility = View.VISIBLE
-                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
         }
@@ -166,8 +161,13 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
             spinnerExercise.adapter = adapter
         }
 
-        spinnerExercise.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
-            override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
+        spinnerExercise.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+            override fun onItemSelected(
+                parent: AdapterView<*>?,
+                view: View?,
+                position: Int,
+                id: Long
+            ) {
                 val selectedExerciseType = parent?.getItemAtPosition(position).toString()
                 //Guarda a opção escolhida pelo usuario
                 SpinnerType = selectedExerciseType
@@ -176,13 +176,11 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
             override fun onNothingSelected(parent: AdapterView<*>?) {
                 val warning = findViewById<TextView>(R.id.emptyFieldExerciseType)
                 warning.visibility = View.VISIBLE
-                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG).show()
+                Snackbar.make(saveBtn, "Preencha os campos obrigatórios", Snackbar.LENGTH_LONG)
+                    .show()
             }
 
         }
-
-
-
 
 
         val nameText = edtTextName.text
@@ -190,8 +188,9 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
-        val gender = if(radioButtonFemale.isSelected) "Feminino" else "Masculino"
-        val goal = if (radioButtonKeep.isSelected) "Manter" else if(radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
+        val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
+        val goal =
+            if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
 
         saveBtn = findViewById(R.id.save_btn)
@@ -208,8 +207,8 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
                 gender,
                 goal,
                 SpinnerWeek,
-                SpinnerType)
-
+                SpinnerType
+            )
 
 
             val intent = Intent(this, MainActivityLogin::class.java)
@@ -219,9 +218,10 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
             //Verifica se os campos não estão vazios
             if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
                 user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
-                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()){
+                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()
+            ) {
                 //Verifica se a senha é valida
-                if(isPasswordValid(passwordText.toString())) {
+                if (isPasswordValid(passwordText.toString())) {
 
                     lifecycleScope.launch {
                         withContext(IO) {
@@ -229,26 +229,31 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
                         }
                     }
 
-                }else if (!isPasswordValid(passwordText.toString())){
+                } else if (!isPasswordValid(passwordText.toString())) {
                     passwordWarning.visibility = View.VISIBLE
                     Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
                 }
-             //Se os campos estiverem vazios, será mostrado uma mensagem de alerta
-            } else{
+                //Se os campos estiverem vazios, será mostrado uma mensagem de alerta
+            } else {
                 showEmptyFieldMessage(nameText.isEmpty(), R.id.emptyFieldName)
                 showEmptyFieldMessage(emailText.isEmpty(), R.id.emptyFieldEmail)
                 showEmptyFieldMessage(passwordText.isEmpty(), R.id.emptyFieldPassword)
                 showEmptyFieldMessage(date == null, R.id.emptyFieldDate)
                 showEmptyFieldMessage(weightText.isEmpty(), R.id.emptyFieldWeight)
                 showEmptyFieldMessage(heightText.isEmpty(), R.id.emptyFieldHeight)
-                showEmptyFieldMessage(genderRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGender)
-                showEmptyFieldMessage(goalsRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGoal)
+                showEmptyFieldMessage(
+                    genderRadioGroup.checkedRadioButtonId == -1,
+                    R.id.emptyFieldGender
+                )
+                showEmptyFieldMessage(
+                    goalsRadioGroup.checkedRadioButtonId == -1,
+                    R.id.emptyFieldGoal
+                )
 
             }
         }
 
     }
-
 
 
     //Se os RadioButton forem selecionados, será setado uma cor
