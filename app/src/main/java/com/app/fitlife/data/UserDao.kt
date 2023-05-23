@@ -1,14 +1,16 @@
 package com.app.fitlife.data
 
-import android.database.sqlite.SQLiteDatabase.openOrCreateDatabase
+import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 import androidx.room.Update
+import androidx.room.Upsert
 
 @Dao
 interface UserDao {
+
 
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
@@ -19,6 +21,5 @@ interface UserDao {
 
     @Query("SELECT * FROM user WHERE email = :email")
     fun getUserByEmail(email: String): User?
-
 
 }
