@@ -101,7 +101,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
                 true
             }
             R.id.menu_logout -> {
-                val intent = Intent(this, MainActivity::class.java)
+                val intent = Intent(this, MainActivity_Login::class.java)
                 startActivity(intent)
                 true
             }
