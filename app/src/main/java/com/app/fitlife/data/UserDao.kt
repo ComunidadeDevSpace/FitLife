@@ -22,6 +22,4 @@ interface UserDao {
     @Query("SELECT * FROM user WHERE email = :email")
     fun getUserByEmail(email: String): User?
 
-
-
 }

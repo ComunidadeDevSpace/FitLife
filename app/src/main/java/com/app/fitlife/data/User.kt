@@ -2,6 +2,8 @@ package com.app.fitlife.data
 
 import androidx.room.Entity
 import androidx.room.PrimaryKey
+import java.io.Serializable
+import java.util.Date
 
 
 @Entity
@@ -17,4 +19,4 @@ data class User(
     val goal: String,
     val weeklyExercise: String,
     val exerciseType :String
-)
+):Serializable

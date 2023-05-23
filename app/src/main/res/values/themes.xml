@@ -20,14 +20,19 @@
         <item name="android:textColorSecondary">@color/white</item>
     </style>
 
-
     <style name="ButtonPrimary" parent="Widget.AppCompat.Button">
         <item name="fontFamily">@font/poppins_bold</item>
         <item name="android:textColor">@color/white</item>
         <item name="backgroundTint">@color/blue_02</item>
 <!--        <item name="android:background">@drawable/btn_rounded_corner</item>-->
-
     </style>
+
+    <!-- SplashScreen Layout Styles -->
+    <style name="splash_screen" parent="Widget.AppCompat.TextView">
+        <item name="fontFamily">@font/poppins_semibold</item>
+        <item name="android:textColor">@color/white</item> <item name="android:textSize">36sp</item>
+    </style>
+
 
     <!-- SignUp Layout Styles -->
     <style name="signup_title" parent="Widget.AppCompat.TextView">

@@ -4,10 +4,9 @@
     android:layout_height="?attr/actionBarSize"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:background="@color/blue_01"
-    android:id="@+id/toolbar"
+    android:id="@+id/toolbar_tela_principal"
     app:titleTextColor="@color/white"
+    app:theme="@style/ToolbarStyle_tela_principal">
 
-    app:theme="@style/ToolbarStyle"
-    >
 
 </androidx.appcompat.widget.Toolbar>

@@ -1,5 +1,6 @@
 package com.app.fitlife
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -182,6 +183,7 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         saveBtn = findViewById(R.id.save_btn)
 
         saveBtn.setOnClickListener {
+
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
@@ -193,6 +195,13 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
                 goal,
                 SpinnerWeek,
                 SpinnerType)
+
+            lifecycleScope.launch{
+                dao.insert(user)
+            }
+
+            val intent = Intent(this, MainActivityLogin::class.java)
+            startActivity(intent)
 
 
             //Verifica se os campos não estão vazios

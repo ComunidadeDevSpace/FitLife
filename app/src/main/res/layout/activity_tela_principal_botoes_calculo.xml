@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/blue_background"
+    android:orientation="vertical"
+    tools:context=".TelaPrincipalBotoesCalculo">
+
+    <include layout="@layout/toolbar_tela_principal" />
+
+    <TextView
+        android:id="@+id/tv_nome_user"
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="75dp"
+        android:hint="Olá Nome usuário"
+        android:textAlignment="textStart"
+        android:textSize="18sp"
+        android:fontFamily="@font/poppins_medium"
+        />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="30dp"
+        android:layout_marginLeft="75dp"
+        android:layout_marginTop="95dp"
+        android:text="Escolha uma das opções abaixo:"
+        android:textAlignment="textStart"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium"
+        />
+
+    <Button
+        android:id="@+id/btnIMC"
+        style="@style/ButtonPrimary"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="116sp"
+        android:drawableLeft="@drawable/balanca"
+        android:text="IMC"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium"
+        />
+
+    <Button
+        android:id="@+id/btn_calories"
+        style="@style/ButtonPrimary"
+        android:layout_width="260dp"
+        android:layout_height="60dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="199dp"
+        android:drawableLeft="@drawable/firecalorias"
+        android:text="Calorias"
+        android:textSize="14sp"
+        android:fontFamily="@font/poppins_medium"
+        />
+
+
+</RelativeLayout>
