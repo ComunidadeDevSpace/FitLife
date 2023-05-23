@@ -196,9 +196,9 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
                 SpinnerWeek,
                 SpinnerType)
 
-            lifecycleScope.launch{
-                dao.insert(user)
-            }
+//            lifecycleScope.launch{
+//                dao.insert(user)
+//            }
 
             val intent = Intent(this, MainActivityLogin::class.java)
             startActivity(intent)

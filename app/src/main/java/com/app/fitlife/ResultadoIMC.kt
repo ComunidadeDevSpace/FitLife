@@ -22,21 +22,18 @@ class ResultadoIMC : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(layout.activity_resultado_imc)
-        setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
+        setSupportActionBar(findViewById(id.toolbar_tela_principal))
 
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
-        val nome = findViewById<TextView>(R.id.tv_nome_user)
-        nome.text = userData.name
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+        val nome: TextView = findViewById(id.tv_nome_user)
+        nome.text = userData?.name
 
-        /*
-        class ResultActivity : AppCompatActivity() {
-            val dao = FakeData()
-        }*/
+
         val tvClassification = findViewById<TextView>(id.textview_classificacao)
         val tvResult = findViewById<TextView>(id.textview_resultado)
 
 
-        val result = intent.getFloatExtra("EXTRA_RESULT", 0.1f)
+        val result = intent.getFloatExtra("EXTRAIMC_RESULT", 0.1f)
 
 
         tvResult.text = result.toString()
