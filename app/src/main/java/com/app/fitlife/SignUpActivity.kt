@@ -49,6 +49,27 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
+        val passwordWarning = findViewById<TextView>(R.id.warning_tv)
+        val edtTextName = findViewById<EditText>(R.id.name_edt_text)
+        val edtTextEmail = findViewById<EditText>(R.id.email_edt_text)
+        val edtTextPassword = findViewById<EditText>(R.id.edt_text_password)
+        val edtTextWeight = findViewById<EditText>(R.id.weight_edt_text)
+        val edtHeight = findViewById<EditText>(R.id.height_edt_text)
+
+        //CheckBox Gender
+        val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
+        val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+
+
+
+        val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
+        if (userData != null){
+            edtTextName.setText(userData?.name)
+            edtTextEmail.setText(userData?.email)
+            edtTextPassword.setText(userData?.password)
+            edtTextWeight.setText(userData?.weight)
+            edtHeight.setText(userData?.height)
+        }
 
         //Inicialização do DataBase a partir da classe Application.
         dataBase = (application as FitLifeApplication).getAppDataBase()
@@ -93,9 +114,7 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
 
 
 
-        //CheckBox Gender
-        val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
-        val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+
 
 
         //CheckBox Goals
@@ -162,12 +181,7 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
 
         }
 
-        val passwordWarning = findViewById<TextView>(R.id.warning_tv)
-        val edtTextName = findViewById<EditText>(R.id.name_edt_text)
-        val edtTextEmail = findViewById<EditText>(R.id.email_edt_text)
-        val edtTextPassword = findViewById<EditText>(R.id.edt_text_password)
-        val edtTextWeight = findViewById<EditText>(R.id.weight_edt_text)
-        val edtHeight = findViewById<EditText>(R.id.height_edt_text)
+
 
 
 
@@ -196,9 +210,7 @@ class SignUpActivity : AppCompatActivity(),LifecycleOwner {
                 SpinnerWeek,
                 SpinnerType)
 
-//            lifecycleScope.launch{
-//                dao.insert(user)
-//            }
+
 
             val intent = Intent(this, MainActivityLogin::class.java)
             startActivity(intent)

@@ -9,6 +9,7 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
+import androidx.core.content.ContextCompat
 import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
@@ -21,7 +22,8 @@ import kotlinx.coroutines.withContext
 
 class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
-    private lateinit var database : AppDataBase
+    private lateinit var database: AppDataBase
+
     companion object {
         fun start(context: Context, user: User): Intent {
             return Intent(context, TelaPrincipalBotoesCalculo::class.java).apply {
@@ -45,7 +47,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         val nome = findViewById<TextView>(R.id.tv_nome_user)
 
         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
-        println(userData)
+
 
         lifecycleScope.launch(Dispatchers.IO) {
             user = dao.getUserByEmail(userData!!.email)
@@ -60,25 +62,17 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             val weight = user!!.weight.toFloat()
             val height = user!!.height.toFloat()
             val result = weight / (height * height)
-            val intent = Intent(this, ResultadoIMC::class.java).apply {
-                putExtra("EXTRAIMC_RESULT", result)
-
-            }
+            val intent = ResultadoIMC.start(this, result, user!!)
             startActivity(intent)
+
         }
-
-
         val btnCalories: Button = findViewById(R.id.btn_calories)
         btnCalories.setOnClickListener {
-            val intent = Intent(this, CaloriesResult::class.java).apply {
-                putExtra("EXTRA_RESULT", userData)
-            }
+            val intent = CaloriesResult.start(this, user!!)
             startActivity(intent)
         }
-
     }
 
-    // Criar um Menu mas ainda nada acontece se clicar
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
         val inflater: MenuInflater = menuInflater
         inflater.inflate(R.menu.menu_tela_principal, menu)
@@ -89,7 +83,9 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
             R.id.menu_editar_perfil -> {
-                val intent = Intent(this, SignUpActivity::class.java)
+                val intent = Intent(this, SignUpActivity::class.java).apply {
+                    putExtra("EXTRA_USER_DATA", user)
+                }
                 startActivity(intent)
                 true
             }
@@ -105,12 +101,11 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
     }
 
-
-    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int) : Float {
+    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int): Float {
         val weightConvert = weight.toFloat()
         val heightConvert = height.toFloat()
         val ageConvert = age.toInt()
-        val result : Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
+        val result: Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
 
         return result
     }
