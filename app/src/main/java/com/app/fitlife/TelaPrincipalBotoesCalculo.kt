@@ -15,73 +15,66 @@ import androidx.room.Room
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class TelaPrincipalBotoesCalculo : AppCompatActivity() {
-    companion object{
-        fun start(context: Context, user : User) : Intent {
+
+    private lateinit var database : AppDataBase
+    companion object {
+        fun start(context: Context, user: User): Intent {
             return Intent(context, TelaPrincipalBotoesCalculo::class.java).apply {
                 putExtra("EXTRA_RESULT", user)
             }
         }
     }
-    private lateinit var dao: UserDao
 
+    private lateinit var dao: UserDao
+    private var user: User? = null
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
 
-        //val userDataNome = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        //Recover data from the DataRoom
+        database = (application as FitLifeApplication).getAppDataBase()
 
-        //Habilitando a tela principal quando clica no botão IMC
-
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        dao = database.userDao()
         val nome = findViewById<TextView>(R.id.tv_nome_user)
-        nome.text = userData.name
 
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+        println(userData)
 
-        //Calculo do IMC
+        lifecycleScope.launch(Dispatchers.IO) {
+            user = dao.getUserByEmail(userData!!.email)
+            withContext(Dispatchers.Main) {
+                nome.text = user!!.name
+            }
+        }
 
-        val btnIMC : Button = findViewById(R.id.btnIMC)
-        btnIMC.setOnClickListener{
-            val weight = userData.weight.toFloat()
-            val height = userData.height.toFloat()
+//Calculo do IMC
+        val btnIMC: Button = findViewById(R.id.btnIMC)
+        btnIMC.setOnClickListener {
+            val weight = user!!.weight.toFloat()
+            val height = user!!.height.toFloat()
             val result = weight / (height * height)
             val intent = Intent(this, ResultadoIMC::class.java).apply {
-                putExtra("EXTRA_RESULT", result)
-                println(result)
+                putExtra("EXTRAIMC_RESULT", result)
+
             }
             startActivity(intent)
         }
 
-//        println(userData)
-//        lifecycleScope.launch{
-//           val user = dao.getUserByEmail(userData.email)
-//            println(user)
-//        }
 
-
-        // Recover data from the DataRoom
-
-//        val db = Room.databaseBuilder(
-//            applicationContext,
-//            AppDataBase::class.java, "database-fitlife"
-//        ).build()
-//
-//        dao = db.userDao()
-////        dao.getUserByEmail()
-
-
-//        val fakeData = FakeData().getData()
-//        val btnCalories: Button = findViewById(R.id.btn_calories)
-//        btnCalories.setOnClickListener {
-//            val intent = Intent(this, CaloriesResult::class.java).apply {
-//                putExtra("EXTRA_RESULT", fakeData)
-//            }
-//            startActivity(intent)
-//        }
+        val btnCalories: Button = findViewById(R.id.btn_calories)
+        btnCalories.setOnClickListener {
+            val intent = Intent(this, CaloriesResult::class.java).apply {
+                putExtra("EXTRA_RESULT", userData)
+            }
+            startActivity(intent)
+        }
 
     }
 
@@ -100,24 +93,25 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
                 startActivity(intent)
                 true
             }
+
             R.id.menu_logout -> {
-                val intent = Intent(this, MainActivity_Login::class.java)
+                val intent = Intent(this, MainActivityLogin::class.java)
                 startActivity(intent)
                 true
             }
+
             else -> super.onOptionsItemSelected(item)
         }
 
     }
 
 
+    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int) : Float {
+        val weightConvert = weight.toFloat()
+        val heightConvert = height.toFloat()
+        val ageConvert = age.toInt()
+        val result : Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
 
-//    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int) : Float {
-//        val weightConvert = weight.toFloat()
-//        val heightConvert = height.toFloat()
-//        val ageConvert = age.toInt()
-//        val result : Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
-//
-//        return result
-//    }
+        return result
+    }
 }

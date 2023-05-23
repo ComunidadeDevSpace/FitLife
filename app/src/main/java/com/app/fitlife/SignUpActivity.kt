@@ -1,6 +1,6 @@
 package com.app.fitlife
-
 import android.app.DatePickerDialog
+import android.content.Intent
 import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
@@ -19,7 +19,7 @@ import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
-import androidx.room.Room
+import androidx.lifecycle.lifecycleScope
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
@@ -27,12 +27,14 @@ import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
 import java.util.Locale
-import androidx.lifecycle.lifecycleScope
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
 
-class SignUpActivity : AppCompatActivity(), LifecycleOwner {
+class SignUpActivity : AppCompatActivity(),LifecycleOwner {
+    private lateinit var dataBase: AppDataBase
+
+
 
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
@@ -48,17 +50,18 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         setContentView(R.layout.activity_sign_up)
 
 
+        //Inicialização do DataBase a partir da classe Application.
+        dataBase = (application as FitLifeApplication).getAppDataBase()
+        dao = dataBase.userDao()
+
+        //Botão de voltar do Toolbar, caso o usuario deseje sair sem salvar os dados, irá aparecer uma mensagem de confirmação
         val imageView = findViewById<ImageView>(R.id.imageView)
         imageView.setOnClickListener {
             showAlertDialog()
         }
 
-        val db = Room.databaseBuilder(
-            applicationContext,
-            AppDataBase::class.java, "database-fitlife"
-        ).build()
 
-        dao = db.userDao()
+
 
 
 
@@ -66,13 +69,17 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataButton = findViewById(R.id.data_cardview)
         dataTextView = findViewById(R.id.date_tv)
 
+        //Guarda a data escolhida pelo usuario
         val calendarBox = Calendar.getInstance()
         val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
+            //Atualiza o texto da EditText
             updateText(calendarBox)
         }
+
+        //Mostra o calendario para o usuario escolher as datas
         dataButton.setOnClickListener {
             DatePickerDialog(
                 this,
@@ -84,48 +91,18 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         }
 
 
+
+
         //CheckBox Gender
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
-        val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
-        genderRadioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.rb_female -> {
 
-                    radioButtonMale.setTextColor(Color.GRAY)
-                }
 
-                R.id.rb_male -> {
-
-                    radioButtonFemale.setTextColor(Color.GRAY)
-                }
-            }
-        }
         //CheckBox Goals
         val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
-        val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
 
-        genderRadioGroup.setOnCheckedChangeListener { group, checkedId ->
-            when (checkedId) {
-                R.id.rb_keep -> {
-                    radioButtonGain.setTextColor(Color.GRAY)
-                    radioButtonGain.setTextColor(Color.GRAY)
-
-                }
-
-                R.id.rb_gain -> {
-                    radioButtonKeep.setTextColor(Color.GRAY)
-                    radioButtonLose.setTextColor(Color.GRAY)
-                }
-
-                R.id.rb_lose -> {
-                    radioButtonKeep.setTextColor(Color.GRAY)
-                    radioButtonGain.setTextColor(Color.GRAY)
-                }
-            }
-        }
 
 
 
@@ -133,6 +110,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
         val spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
+        //Escolhe o Array de opções e aplica na UI
         ArrayAdapter.createFromResource(
             this,
             R.array.WeeklyExercise,
@@ -147,6 +125,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         spinnerWeek.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedWeeklyExercise = parent?.getItemAtPosition(position).toString()
+                //Guarda a opção escolhida pelo usuario
                 SpinnerWeek = selectedWeeklyExercise
             }
 
@@ -158,6 +137,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+        //Escolhe o Array de opções e aplica na UI
         ArrayAdapter.createFromResource(
             this,
             R.array.ExerciseType,
@@ -170,6 +150,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         spinnerExercise.onItemSelectedListener = object: AdapterView.OnItemSelectedListener{
             override fun onItemSelected(parent: AdapterView<*>?, view: View?, position: Int, id: Long) {
                 val selectedExerciseType = parent?.getItemAtPosition(position).toString()
+                //Guarda a opção escolhida pelo usuario
                 SpinnerType = selectedExerciseType
             }
 
@@ -202,6 +183,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         saveBtn = findViewById(R.id.save_btn)
 
         saveBtn.setOnClickListener {
+
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
@@ -214,17 +196,23 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 SpinnerWeek,
                 SpinnerType)
 
-            val intent = TelaPrincipalBotoesCalculo.start(this, user)
+//            lifecycleScope.launch{
+//                dao.insert(user)
+//            }
+
+            val intent = Intent(this, MainActivityLogin::class.java)
             startActivity(intent)
 
 
+            //Verifica se os campos não estão vazios
             if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
                 user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
                 user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()){
+                //Verifica se a senha é valida
                 if(isPasswordValid(passwordText.toString())) {
 
                     lifecycleScope.launch {
-                        withContext(Dispatchers.IO) {
+                        withContext(IO) {
                             dao.insert(user)
                         }
                     }
@@ -233,7 +221,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                     passwordWarning.visibility = View.VISIBLE
                     Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
                 }
-
+             //Se os campos estiverem vazios, será mostrado uma mensagem de alerta
             } else{
                 showEmptyFieldMessage(nameText.isEmpty(), R.id.emptyFieldName)
                 showEmptyFieldMessage(emailText.isEmpty(), R.id.emptyFieldEmail)
@@ -249,13 +237,16 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
     }
 
+
+
+    //Se os RadioButton forem selecionados, será setado uma cor
     fun onRadioButtonClicked(view: View) {
         val isSelected = (view as AppCompatRadioButton).isChecked
         when (view.id) {
             R.id.rb_female -> {
                 if (isSelected) {
-                    val radioButtonHomem = findViewById<RadioButton>(R.id.rb_male)
-                    radioButtonHomem.setTextColor(Color.GRAY)
+                    val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
+                    radioButtonMale.setTextColor(Color.GRAY)
 
 
                 }
@@ -263,8 +254,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
             R.id.rb_male -> {
                 if (isSelected) {
-                    val radioButtonMulher = findViewById<RadioButton>(R.id.rb_female)
-                    radioButtonMulher.setTextColor(Color.GRAY)
+                    val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+                    radioButtonFemale.setTextColor(Color.GRAY)
                 }
             }
 
@@ -298,7 +289,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         }
     }
 
-
+    //Verifica se a senha é valida
     private fun isPasswordValid(password: String): Boolean {
         val hasUpperCase = password.any {
             it.isUpperCase()
@@ -314,6 +305,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         return hasUpperCase && hasLowerCase && hasDigit && isLengthValid
     }
 
+    //Verifica se os campos estão vazios e seta uma mensagem
     private fun showEmptyFieldMessage(isEmpty: Boolean, emptyFieldId: Int) {
         val emptyField = findViewById<TextView>(emptyFieldId)
         if (isEmpty) {
@@ -324,15 +316,17 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         }
     }
 
+    //Atualiza o box da Data
     private fun updateText(calendar: Calendar) {
         val dateFormat = "dd/MM/yyyy"
         val simple = SimpleDateFormat(dateFormat, Locale.UK)
         dataTextView.text = simple.format(calendar.time)
         dataTextView.setTextColor(Color.BLACK)
-        val dateString = simple.format(calendar.time)
+        val dateString = simple.format(calendar.time).toString()
         date = dateString
     }
 
+    //Mostra uma mensagem ao clicar no botão de salvar.
     private fun showAlertDialog() {
         val alertDialog = AlertDialog.Builder(this)
             .setTitle("Tem certeza que deseja sair?")
