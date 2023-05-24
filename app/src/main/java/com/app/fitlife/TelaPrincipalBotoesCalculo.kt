@@ -26,7 +26,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
-        setSupportActionBar(findViewById(R.id.toolbar))
+        setSupportActionBar(findViewById(R.id.menu_editar_perfil))
         //Habilitando a tela principal quando clica no botão IMC
         val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
         val btnCalories: Button = findViewById(R.id.btn_calories)
@@ -59,7 +59,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
     }
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         return when (item.itemId) {
-            R.id.editar_perfil -> {
+            R.id.menu_editar_perfil -> {
                 //colocar aqui para abrir tela de cadastro
                 true
             }
