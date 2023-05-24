@@ -7,7 +7,7 @@
     tools:context=".CaloriesResult"
     android:orientation="vertical">
 
-    <include layout="@layout/toolbar_sign_up" />
+    <include layout="@layout/toolbar_tela_principal" />
 
     <TextView
         android:id="@+id/tv_nome_user"
@@ -22,15 +22,5 @@
         android:fontFamily="@font/poppins_medium"
         />
 
-    <TextView
-        android:id="@+id/tv_resultado"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="55dp"
-        android:text="Sobrepeso e precisa emagrecer"
-        android:textColor="@color/black"
-        android:textSize="16dp"
-        android:fontFamily="@font/poppins_medium"
-        />
 
 </LinearLayout>

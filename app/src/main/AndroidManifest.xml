@@ -14,37 +14,29 @@
         android:theme="@style/Theme.FitLife"
         tools:targetApi="31">
         <activity
-            android:name=".HomeActivity"
-            android:exported="false"
-            android:theme="@style/Theme.AppCompat.NoActionBar"/>
-        <activity
-            android:name=".RegisterActivity"
-            android:exported="false" />
-      <activity
-            android:name=".SignUpActivity"
-            android:exported="false" />
-        <activity
             android:name=".TelaPrincipalBotoesCalculo"
-            android:exported="false" />
-        <activity
-            android:name=".ResultadoIMC"
             android:exported="false" />
         <activity
             android:name=".CaloriesResult"
             android:exported="false" />
         <activity
+            android:name=".ResultadoIMC"
+            android:exported="false" />
+        <activity
             android:name=".MainActivityLogin"
             android:exported="false" />
         <activity
+            android:name=".SignUpActivity"
+            android:exported="false" />
+
+        <activity
             android:name=".SplashScreen"
-            android:exported="true"
-            android:theme="@style/Theme.FitLife">
+            android:exported="true">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
-
         </activity>
     </application>
 

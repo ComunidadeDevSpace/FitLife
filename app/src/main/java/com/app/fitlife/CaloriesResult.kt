@@ -26,10 +26,8 @@ class CaloriesResult : AppCompatActivity() {
         val nome = findViewById<TextView>(R.id.tv_nome_user)
         nome.text = userDataNome.name
 
-        val tvResult : TextView = findViewById(R.id.tv_resultado)
 
-        val result = intent.getFloatExtra("EXTRA_RESULT", 0.1f)
-        tvResult.text = result.toString()
+
 
         // Habilitar botão de voltar no ToolBar
         supportActionBar?.setHomeButtonEnabled(true)

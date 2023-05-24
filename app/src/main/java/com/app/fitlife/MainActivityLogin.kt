@@ -8,10 +8,17 @@ import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
+import androidx.lifecycle.lifecycleScope
+import androidx.room.Room
+import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 
 class MainActivityLogin : AppCompatActivity() {
 
+    private lateinit var database: AppDataBase
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -19,21 +26,16 @@ class MainActivityLogin : AppCompatActivity() {
         val loginButton: Button = findViewById(R.id.loginButton)
         val registerButton: Button = findViewById(R.id.registerButton)
 
+        database = (application as FitLifeApplication).getAppDataBase()
+
         loginButton.setOnClickListener {
             val loginEditText: EditText = findViewById(R.id.loginEditText)
             val passwordEditText: EditText = findViewById(R.id.passwordEditText)
             val login = loginEditText.text.toString()
             val password = passwordEditText.text.toString()
 
-            if (isValidCredentials(login, password)) {
-                val welcomeTextView: TextView = findViewById(R.id.welcomeTextView)
-                welcomeTextView.text = "Bem-vindo, $login!"
+            isValidCredentials(login, password)
 
-                val intent = Intent(this,TelaPrincipalBotoesCalculo::class.java)
-                startActivity(intent)
-            } else {
-                Toast.makeText(this, "Credenciais inválidas. Tente novamente.", Toast.LENGTH_SHORT).show()
-            }
         }
 
         registerButton.setOnClickListener {
@@ -42,10 +44,29 @@ class MainActivityLogin : AppCompatActivity() {
         }
     }
 
-    private fun isValidCredentials(login: String, password: String): Boolean {
-        // Implemente sua lógica de validação das credenciais aqui
-        // Por exemplo, você pode verificar se o login e a senha correspondem a um registro existente no banco de dados
-        // Neste exemplo, vamos considerar válido se o login for "admin" e a senha for "123456"
-        return login == "admin" && password == "123456"
+    private fun isValidCredentials(login: String, password: String) {
+
+        lifecycleScope.launch(Dispatchers.IO) {
+            val user = database.userDao().getUserByEmail(login)
+            withContext(Dispatchers.Main) {
+                if (user != null && user.password == password) {
+                    // Valid credentials, proceed with login
+                    Toast.makeText(applicationContext, "Bem vindo! Logado com sucesso.", Toast.LENGTH_SHORT)
+                        .show()
+                    // Proceed to the next activity or perform any other action
+                    val intent = TelaPrincipalBotoesCalculo.start(applicationContext, user)
+                    startActivity(intent)
+                } else {
+                    // Invalid credentials
+                    Toast.makeText(
+                        applicationContext,
+                        "Credenciais invalidas por favor tente novamente.",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        }
+
+
     }
 }

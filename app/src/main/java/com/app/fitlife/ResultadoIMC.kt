@@ -6,14 +6,15 @@ import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
 import android.widget.TextView
-import com.app.fitlife.R.*
+import com.app.fitlife.R
 import com.app.fitlife.data.User
 
 class ResultadoIMC : AppCompatActivity() {
 
     companion object {
-        fun start(context: Context, user: User): Intent {
+        fun start(context: Context, result: Float, user: User): Intent {
             return Intent(context, ResultadoIMC::class.java).apply {
+                putExtra("EXTRAIMC_RESULT", result)
                 putExtra("EXTRA_RESULT", user)
             }
         }
@@ -21,22 +22,19 @@ class ResultadoIMC : AppCompatActivity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(layout.activity_resultado_imc)
+        setContentView(R.layout.activity_resultado_imc)
         setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
-        val nome = findViewById<TextView>(R.id.tv_nome_user)
-        nome.text = userData.name
-
-        /*
-        class ResultActivity : AppCompatActivity() {
-            val dao = FakeData()
-        }*/
-        val tvClassification = findViewById<TextView>(id.textview_classificacao)
-        val tvResult = findViewById<TextView>(id.textview_resultado)
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+        val nome: TextView = findViewById(R.id.tv_nome_user_imc)
+        nome.text = userData?.name
 
 
-        val result = intent.getFloatExtra("EXTRA_RESULT", 0.1f)
+        val tvClassification = findViewById<TextView>(R.id.textview_classificacao)
+        val tvResult = findViewById<TextView>(R.id.textview_resultado)
+
+
+        val result = intent.getFloatExtra("EXTRAIMC_RESULT", 0.1f)
 
 
         tvResult.text = result.toString()
@@ -64,9 +62,10 @@ class ResultadoIMC : AppCompatActivity() {
         // Mostrar botão de voltar no ToolBar
         supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
-        val classifcacaoDesc: TextView = findViewById(id.tv_classificacao_desc)
-        classficacaoDescricao(classifcacaoDesc)
+        val classifcacaoDesc: TextView = findViewById(R.id.tv_classificacao_desc)
+        val classificacaoDescricao = classficacaoDescricao(classifcacaoDesc)
 
+        classifcacaoDesc.text = classificacaoDescricao
     }
 
     // função para chamar o texto sobre o resultado da classficação do IMC
