@@ -4,54 +4,66 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="@color/blue_background"
     android:orientation="vertical"
     tools:context=".TelaPrincipalBotoesCalculo">
 
-    <include layout="@layout/toolbar" />
+    <include layout="@layout/toolbar_tela_principal" />
 
     <TextView
+        android:id="@+id/tv_nome_user"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="75dp"
-        android:text="Olá Nome usuário"
+        android:fontFamily="@font/poppins_medium"
+        android:hint="Olá Nome usuário"
         android:textAlignment="textStart"
         android:textSize="18sp" />
 
     <TextView
+        android:id="@+id/tv_txt"
         android:layout_width="match_parent"
         android:layout_height="30dp"
         android:layout_marginLeft="75dp"
         android:layout_marginTop="95dp"
+        android:fontFamily="@font/poppins_medium"
         android:text="Escolha uma das opções abaixo:"
         android:textAlignment="textStart"
         android:textSize="14sp" />
 
-    <Button
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btnIMC"
         style="@style/ButtonPrimary"
         android:layout_width="260dp"
-        android:layout_height="60dp"
+        android:layout_height="38dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="116sp"
-        android:text="IMC"
-        android:textSize="14sp"
+        android:layout_marginTop="150dp"
+        android:background="@drawable/save_button_layout"
+        android:backgroundTint="@color/blue_02"
         android:drawableLeft="@drawable/balanca"
-        />
+        android:fontFamily="@font/poppins_bold"
+        android:text="IMC"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <Button
+
+    <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_calories"
         style="@style/ButtonPrimary"
         android:layout_width="260dp"
-        android:layout_height="60dp"
+        android:layout_height="38dp"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="199dp"
-        android:text="Calorias"
-        android:textSize="14sp"
+        android:background="@drawable/save_button_layout"
+        android:backgroundTint="@color/blue_02"
         android:drawableLeft="@drawable/firecalorias"
-        />
-
-
+        android:fontFamily="@font/poppins_bold"
+        android:text="Calorias"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 
 </RelativeLayout>
