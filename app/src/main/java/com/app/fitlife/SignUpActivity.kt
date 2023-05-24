@@ -57,9 +57,30 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val edtTextWeight = findViewById<EditText>(R.id.weight_edt_text)
         val edtHeight = findViewById<EditText>(R.id.height_edt_text)
 
+
+        //CheckBox Goals
+        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
+        val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
+        val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
+
+
         //CheckBox Gender
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+
+        val nameText = edtTextName.text
+        val emailText = edtTextEmail.text
+        val passwordText = edtTextPassword.text
+        val weightText = edtTextWeight.text
+        val heightText = edtHeight.text
+        val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
+        val goal =
+            if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
+
+
+
+        //Variavel que Guarda a data escolhida pelo usuario
+        val calendarBox = Calendar.getInstance()
 
         //  função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
@@ -69,6 +90,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             edtTextPassword.setText(userData?.password)
             edtTextWeight.setText(userData?.weight)
             edtHeight.setText(userData?.height)
+
         }
 
         //Inicialização do DataBase a partir da classe Application.
@@ -87,8 +109,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataTextView = findViewById(R.id.date_tv)
 
         //Guarda a data escolhida pelo usuario
-        val calendarBox = Calendar.getInstance()
-        val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+            val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
@@ -106,13 +127,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 calendarBox.get(Calendar.DAY_OF_MONTH)
             ).show()
         }
-
-
-        //CheckBox Goals
-        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
-        val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
-        val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
-
 
         //Spinner
         val spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
@@ -181,16 +195,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             }
 
         }
-
-
-        val nameText = edtTextName.text
-        val emailText = edtTextEmail.text
-        val passwordText = edtTextPassword.text
-        val weightText = edtTextWeight.text
-        val heightText = edtHeight.text
-        val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
-        val goal =
-            if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
 
         saveBtn = findViewById(R.id.save_btn)

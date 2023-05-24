@@ -100,13 +100,4 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         }
 
     }
-
-    private fun womanCaloriesCalc(weight: Float, height: Float, age: Int): Float {
-        val weightConvert = weight.toFloat()
-        val heightConvert = height.toFloat()
-        val ageConvert = age.toInt()
-        val result: Float = 655.1f + (weight * 9.6f) + (height * 1.8f) - (age * 4.7f)
-
-        return result
-    }
 }
