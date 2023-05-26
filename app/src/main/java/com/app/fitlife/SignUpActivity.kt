@@ -39,6 +39,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var saveBtn: Button
     private lateinit var dao: UserDao
     private var date:String? = null
+    private var goal:String? = null
     private var gender:String? = null
     var SpinnerWeek : String =""
     var SpinnerType : String = ""
@@ -206,11 +207,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
         gender = if(radioButtonFemale.isSelected) "Feminino" else "Masculino"
-
-
-        val goal = if (radioButtonKeep.isSelected) "Manter" else if(radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
-
-
+        goal = if (radioButtonKeep.isSelected) "Manter" else if(radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
         saveBtn = findViewById(R.id.save_btn)
 
@@ -223,7 +220,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 weightText.toString(),
                 heightText.toString(),
                 gender.toString(),
-                goal,
+                goal.toString(),
                 SpinnerWeek,
                 SpinnerType)
 

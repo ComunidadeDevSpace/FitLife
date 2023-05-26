@@ -22,33 +22,71 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             }
         }
     }
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.menu_editar_perfil))
         //Habilitando a tela principal quando clica no botão IMC
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
         val btnCalories: Button = findViewById(R.id.btn_calories)
+        val userButtonRecover = SignUpActivity()
+
         btnCalories.setOnClickListener {
-             if(userData.gender == "Masculino") {
-                val intent = Intent(this, CaloriesResult::class.java).apply {
-                    putExtra("EXTRA_RESULT", caloriesMenCalc(userData))
-                }
-                 startActivity(intent)
-            } else if(userData.gender == "Feminino") {
-                val intent = Intent(this, CaloriesResult::class.java).apply {
-                    putExtra("EXTRA_RESULT", caloriesWomanCalc(userData))
-                }
-                 startActivity(intent)
-            }
+//
         }
 
-        // Habilitar botão de voltar no ToolBar
-        supportActionBar?.setHomeButtonEnabled(true)
-        // Mostrar botão de voltar no ToolBar
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
+        if (userData?.gender == "Masculino") {
+//                when (userData.goal) {
+//                    "Manter" -> {
+//                         intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesMenCalc(userData) + 500)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                    "Ganhar" -> {
+//                         intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesMenCalc(userData) + 1000)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                    "Emagrecer" -> {
+//                          intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesMenCalc(userData) - 500)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                }
+//
+//            } else if(userData?.gender == "Feminino") {
+//                when (userData.goal) {
+//                    "Manter" -> {
+//                         intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesWomanCalc(userData) + 500)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                    "Ganhar" -> {
+//                         intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesWomanCalc(userData) + 1000)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                    "Emagrecer" -> {
+//                         intent = Intent(this, CaloriesResult::class.java).apply {
+//                            putExtra("EXTRA_RESULT", caloriesWomanCalc(userData) - 500)
+//                        }
+//                        startActivity(intent)
+//                    }
+//                }
+//            }
 
+
+            // Habilitar botão de voltar no ToolBar
+            supportActionBar?.setHomeButtonEnabled(true)
+            // Mostrar botão de voltar no ToolBar
+            supportActionBar?.setDisplayHomeAsUpEnabled(true)
+
+        }
     }
 
     // Criar um Menu mas ainda nada acontece se clicar
