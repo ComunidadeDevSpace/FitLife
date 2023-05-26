@@ -2,6 +2,7 @@ package com.app.fitlife
 
 import android.content.Context
 import android.content.Intent
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.Menu
@@ -9,16 +10,16 @@ import android.view.MenuInflater
 import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
-import androidx.core.content.ContextCompat
-import androidx.core.content.ContextCompat.startActivity
 import androidx.lifecycle.lifecycleScope
-import androidx.room.Room
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
+import java.time.LocalDate
+import java.time.Period
+import java.time.format.DateTimeFormatter
 
 class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
@@ -39,24 +40,23 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         setContentView(R.layout.activity_tela_principal_botoes_calculo)
         setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
 
-
         //Recover data from the DataRoom
         database = (application as FitLifeApplication).getAppDataBase()
 
         dao = database.userDao()
         val nome = findViewById<TextView>(R.id.tv_nome_user)
 
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+        val userData = intent.getSerializableExtra("EXTRA_RESULT") as User
 
 
         lifecycleScope.launch(Dispatchers.IO) {
-            user = dao.getUserByEmail(userData!!.email)
+            user = dao.getUserByEmail(userData.email)
             withContext(Dispatchers.Main) {
                 nome.text = user!!.name
             }
         }
 
-//Calculo do IMC
+        //Calculo do IMC
         val btnIMC: Button = findViewById(R.id.btnIMC)
         btnIMC.setOnClickListener {
             val weight = user!!.weight.toFloat()
@@ -66,23 +66,53 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             startActivity(intent)
 
         }
-        setSupportActionBar(findViewById(R.id.menu_editar_perfil))
-        //Habilitando a tela principal quando clica no botão IMC
-        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+
+        //Calculo Calorias
         val btnCalories: Button = findViewById(R.id.btn_calories)
         btnCalories.setOnClickListener {
-             if(userData.gender == "Masculino") {
-                val intent = Intent(this, CaloriesResult::class.java).apply {
-                    putExtra("EXTRA_RESULT", caloriesMenCalc(userData))
+            println(user?.gender)
+            if(user?.gender == "Masculino"){
+                when (user?.goal) {
+                    "Ganhar" -> {
+                        val result = caloriesMenCalc(userData) + 1000
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
+                    "Manter" -> {
+                        val result = caloriesMenCalc(userData) + 500
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
+                    "Emagrecer" -> {
+                        val result = caloriesMenCalc(userData) - 500
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
                 }
-                 startActivity(intent)
-            } else if(userData.gender == "Feminino") {
-                val intent = Intent(this, CaloriesResult::class.java).apply {
-                    putExtra("EXTRA_RESULT", caloriesWomanCalc(userData))
+            } else if(user?.gender == "Feminino"){
+                when (user?.goal) {
+                    "Ganhar" -> {
+                        val result = caloriesWomanCalc(userData) + 1000
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
+                    "Manter" -> {
+                        val result = caloriesWomanCalc(userData) + 500
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
+                    "Emagrecer" -> {
+                        val result = caloriesWomanCalc(userData) - 500
+                        val intent = CaloriesResult.start(this, result, user!!)
+                        startActivity(intent)
+                    }
                 }
-                 startActivity(intent)
             }
         }
+
+
+
+        setSupportActionBar(findViewById(R.id.menu_editar_perfil))
 
         // Habilitar botão de voltar no ToolBar
         supportActionBar?.setHomeButtonEnabled(true)

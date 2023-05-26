@@ -34,8 +34,6 @@ import kotlinx.coroutines.withContext
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
-
-
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
@@ -43,7 +41,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private var date: String? = null
     var SpinnerWeek: String = ""
     var SpinnerType: String = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,8 +56,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
 
         //CheckBox Goals
-        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
+        val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
 
 
@@ -68,21 +65,29 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
 
+
         val nameText = edtTextName.text
         val emailText = edtTextEmail.text
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
-        val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
-        val goal =
-            if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
-
-
+        val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
+        val goal = when (goalsRadioGroup.checkedRadioButtonId) {
+            radioButtonGain.id -> {
+                "Ganhar"
+            }
+            radioButtonLose.id -> {
+                "Emagrecer"
+            }
+            else -> {
+                "Manter"
+            }
+        }
 
         //Variavel que Guarda a data escolhida pelo usuario
         val calendarBox = Calendar.getInstance()
 
-        //  função para recuperação dos dados no menu editar perfil
+        //  Função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
         if (userData != null) {
             edtTextName.setText(userData?.name)
@@ -90,7 +95,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             edtTextPassword.setText(userData?.password)
             edtTextWeight.setText(userData?.weight)
             edtHeight.setText(userData?.height)
-
         }
 
         //Inicialização do DataBase a partir da classe Application.
@@ -196,11 +200,10 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
-
         saveBtn = findViewById(R.id.save_btn)
-
         saveBtn.setOnClickListener {
 
+            println(genderRadioGroup.checkedRadioButtonId)
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
