@@ -12,6 +12,7 @@ import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
+import com.app.fitlife.data.UserDao
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.withContext
@@ -19,15 +20,17 @@ import kotlinx.coroutines.withContext
 class MainActivityLogin : AppCompatActivity() {
 
     private lateinit var database: AppDataBase
+    private lateinit var dao: UserDao
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main_login)
+        setSupportActionBar(findViewById(R.id.toolbar_tela_principal))
         val loginButton: Button = findViewById(R.id.loginButton)
         val registerButton: Button = findViewById(R.id.registerButton)
 
         database = (application as FitLifeApplication).getAppDataBase()
-
+        dao = database.userDao()
         loginButton.setOnClickListener {
             val loginEditText: EditText = findViewById(R.id.loginEditText)
             val passwordEditText: EditText = findViewById(R.id.passwordEditText)
@@ -47,7 +50,7 @@ class MainActivityLogin : AppCompatActivity() {
     private fun isValidCredentials(login: String, password: String) {
 
         lifecycleScope.launch(Dispatchers.IO) {
-            val user = database.userDao().getUserByEmail(login)
+            val user = dao.getUserByEmail(login)
             withContext(Dispatchers.Main) {
                 if (user != null && user.password == password) {
                     // Valid credentials, proceed with login
