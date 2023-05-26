@@ -31,6 +31,7 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import kotlin.text.Typography.times
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
