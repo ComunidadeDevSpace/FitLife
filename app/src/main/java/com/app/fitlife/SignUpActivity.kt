@@ -72,22 +72,12 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
         val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
-        val goal = when (goalsRadioGroup.checkedRadioButtonId) {
-            radioButtonGain.id -> {
-                "Ganhar"
-            }
-            radioButtonLose.id -> {
-                "Emagrecer"
-            }
-            else -> {
-                "Manter"
-            }
-        }
+        val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
 
         //Variavel que Guarda a data escolhida pelo usuario
         val calendarBox = Calendar.getInstance()
 
-        //  Função para recuperação dos dados no menu editar perfil
+        //Função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
         if (userData != null) {
             edtTextName.setText(userData?.name)
