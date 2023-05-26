@@ -35,7 +35,8 @@ import kotlinx.coroutines.withContext
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
 
-
+    private lateinit var spinnerWeek: Spinner
+    private lateinit var spinnerExercise: Spinner
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
@@ -62,11 +63,13 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
+        val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
 
 
         //CheckBox Gender
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+        val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
 
         val nameText = edtTextName.text
         val emailText = edtTextEmail.text
@@ -77,6 +80,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val goal =
             if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
+        //Spinner
+        spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
+        spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
 
         //Variavel que Guarda a data escolhida pelo usuario
@@ -90,7 +96,19 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             edtTextPassword.setText(userData?.password)
             edtTextWeight.setText(userData?.weight)
             edtHeight.setText(userData?.height)
-
+            if (userData?.gender == "Feminino") {
+                radioButtonFemale.isChecked = true
+            } else {
+                radioButtonMale.isChecked = true
+            }
+            if (userData?.goal == "Manter") {
+                radioButtonKeep.isChecked = true
+            } else if (userData?.goal == "Ganhar") {
+                radioButtonGain.isChecked = true
+            } else {
+                radioButtonLose.isChecked = true
+            }
+            recoverWeeklyExercises(userData?.weeklyExercise.toString())
         }
 
         //Inicialização do DataBase a partir da classe Application.
@@ -109,7 +127,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataTextView = findViewById(R.id.date_tv)
 
         //Guarda a data escolhida pelo usuario
-            val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+        val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
@@ -128,9 +146,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             ).show()
         }
 
-        //Spinner
-        val spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
-        val spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
         //Escolhe o Array de opções e aplica na UI
         ArrayAdapter.createFromResource(
@@ -358,5 +373,17 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             .setNegativeButton("Não") { dialog, which -> }
             .create()
         alertDialog.show()
+    }
+
+    private fun recoverWeeklyExercises(times: String) {
+        when (times) {
+            "1 vezes na semana" -> spinnerWeek.getItemAtPosition(0).toString()
+            "2 vezes na semana" -> spinnerWeek.getItemAtPosition(1).toString()
+            "3 vezes na semana" -> spinnerWeek.getItemAtPosition(2).toString()
+            "4 vezes na semana" -> spinnerWeek.getItemAtPosition(3).toString()
+            "5 vezes na semana" -> spinnerWeek.getItemAtPosition(4).toString()
+            "6 vezes na semana" -> spinnerWeek.getItemAtPosition(5).toString()
+            "7 vezes na semana" -> spinnerWeek.getItemAtPosition(6).toString()
+        }
     }
 }
