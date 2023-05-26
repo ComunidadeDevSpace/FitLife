@@ -71,36 +71,40 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         val btnCalories: Button = findViewById(R.id.btn_calories)
         btnCalories.setOnClickListener {
             println(user?.gender)
-            if(user?.gender == "Masculino"){
+            if (user?.gender == "Masculino") {
                 when (user?.goal) {
                     "Ganhar" -> {
                         val result = caloriesMenCalc(userData) + 1000
                         val intent = CaloriesResult.start(this, result, user!!)
                         startActivity(intent)
                     }
+
                     "Manter" -> {
                         val result = caloriesMenCalc(userData) + 500
                         val intent = CaloriesResult.start(this, result, user!!)
                         startActivity(intent)
                     }
+
                     "Emagrecer" -> {
                         val result = caloriesMenCalc(userData) - 500
                         val intent = CaloriesResult.start(this, result, user!!)
                         startActivity(intent)
                     }
                 }
-            } else if(user?.gender == "Feminino"){
+            } else if (user?.gender == "Feminino") {
                 when (user?.goal) {
                     "Ganhar" -> {
                         val result = caloriesWomanCalc(userData) + 1000
                         val intent = CaloriesResult.start(this, result, user!!)
                         startActivity(intent)
                     }
+
                     "Manter" -> {
                         val result = caloriesWomanCalc(userData) + 500
                         val intent = CaloriesResult.start(this, result, user!!)
                         startActivity(intent)
                     }
+
                     "Emagrecer" -> {
                         val result = caloriesWomanCalc(userData) - 500
                         val intent = CaloriesResult.start(this, result, user!!)
@@ -110,14 +114,6 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             }
         }
 
-
-
-        setSupportActionBar(findViewById(R.id.menu_editar_perfil))
-
-        // Habilitar botão de voltar no ToolBar
-        supportActionBar?.setHomeButtonEnabled(true)
-        // Mostrar botão de voltar no ToolBar
-        supportActionBar?.setDisplayHomeAsUpEnabled(true)
 
     }
 
@@ -149,6 +145,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
     }
 
+
     private fun ageCalculate(user: User): Int {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
             DateTimeFormatter.ofPattern("dd/MM/yyyy")
@@ -159,12 +156,14 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         val currentDate = LocalDate.now()
         return Period.between(birthDate, currentDate).years
     }
+
     private fun caloriesMenCalc(user: User): Double {
         val weight = user.weight.toDouble() * 13.8
         val height = user.height.toDouble() * 5
         val age = ageCalculate(user) * 6.8
         return 66.5 + weight + height - age
     }
+
     private fun caloriesWomanCalc(user: User): Double {
         val weight = user.weight.toDouble() * 9.6
         val height = user.height.toDouble() * 5

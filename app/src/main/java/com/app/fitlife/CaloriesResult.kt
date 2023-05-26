@@ -28,6 +28,8 @@ class CaloriesResult : AppCompatActivity() {
         val nome = findViewById<TextView>(R.id.tv_nome_user)
         nome.text = userDataNome.name
 
+        val objetivo = findViewById<TextView>(R.id.tv_objetivo)
+        objetivo.text = userDataNome.goal
 
         val tvResult = findViewById<TextView>(R.id.textview_result)
         tvResult.text = result.toString()

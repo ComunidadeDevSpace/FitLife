@@ -63,6 +63,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
         val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
+        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
 
 
         //CheckBox Gender
@@ -76,8 +77,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
-        val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
-        val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
+        //val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
+        //val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
         val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
         val goal =
             if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
@@ -110,7 +111,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             } else {
                 radioButtonLose.isChecked = true
             }
-            recoverWeeklyExercises(userData?.weeklyExercise.toString())
+
         }
 
         //Inicialização do DataBase a partir da classe Application.
@@ -129,7 +130,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataTextView = findViewById(R.id.date_tv)
 
         //Guarda a data escolhida pelo usuario
-            val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+        val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
@@ -376,15 +377,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         alertDialog.show()
     }
 
-    private fun recoverWeeklyExercises(times: String) {
-        when (times) {
-            "1 vezes na semana" -> spinnerWeek.getItemAtPosition(0).toString()
-            "2 vezes na semana" -> spinnerWeek.getItemAtPosition(1).toString()
-            "3 vezes na semana" -> spinnerWeek.getItemAtPosition(2).toString()
-            "4 vezes na semana" -> spinnerWeek.getItemAtPosition(3).toString()
-            "5 vezes na semana" -> spinnerWeek.getItemAtPosition(4).toString()
-            "6 vezes na semana" -> spinnerWeek.getItemAtPosition(5).toString()
-            "7 vezes na semana" -> spinnerWeek.getItemAtPosition(6).toString()
-        }
+    private fun recoverExerciseWeekly (){
+
     }
 }
