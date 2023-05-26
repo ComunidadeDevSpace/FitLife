@@ -22,5 +22,20 @@
         android:fontFamily="@font/poppins_medium"
         />
 
+    <TextView
+        android:id="@+id/textview_result"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="16dp"
+        android:textAlignment="textStart"
+        android:textColor="@color/black"
+        android:textSize="48sp"
+        tools:hint="27,104"
+        android:layout_marginLeft="100dp"
+        android:maxLength="6"
+        android:background="@drawable/radio_group_text"
+        android:fontFamily="@font/poppins_medium"
+        />
+
 
 </LinearLayout>

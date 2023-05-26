@@ -46,7 +46,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     var SpinnerWeek: String = ""
     var SpinnerType: String = ""
 
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
@@ -61,10 +60,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
 
         //CheckBox Goals
-        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
-        val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
         val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
+        val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
 
 
         //CheckBox Gender
@@ -72,11 +70,14 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
         val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
 
+
         val nameText = edtTextName.text
         val emailText = edtTextEmail.text
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
+        val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
+        val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
         val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
         val goal =
             if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
@@ -89,7 +90,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         //Variavel que Guarda a data escolhida pelo usuario
         val calendarBox = Calendar.getInstance()
 
-        //  função para recuperação dos dados no menu editar perfil
+        //Função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
         if (userData != null) {
             edtTextName.setText(userData?.name)
@@ -128,7 +129,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataTextView = findViewById(R.id.date_tv)
 
         //Guarda a data escolhida pelo usuario
-        val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+            val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
@@ -212,11 +213,10 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
-
         saveBtn = findViewById(R.id.save_btn)
-
         saveBtn.setOnClickListener {
 
+            println(genderRadioGroup.checkedRadioButtonId)
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
