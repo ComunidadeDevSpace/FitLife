@@ -31,11 +31,13 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import kotlin.text.Typography.times
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
 
-
+    private lateinit var spinnerWeek: Spinner
+    private lateinit var spinnerExercise: Spinner
     private lateinit var dataTextView: TextView
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
@@ -43,7 +45,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private var date: String? = null
     var SpinnerWeek: String = ""
     var SpinnerType: String = ""
-
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -59,30 +60,38 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
 
         //CheckBox Goals
-        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
         val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
+        val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
         val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
+        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
 
 
         //CheckBox Gender
         val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
         val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+        val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
+
 
         val nameText = edtTextName.text
         val emailText = edtTextEmail.text
         val passwordText = edtTextPassword.text
         val weightText = edtTextWeight.text
         val heightText = edtHeight.text
+        //val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
+        //val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
         val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
         val goal =
             if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
+        //Spinner
+        spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
+        spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
 
         //Variavel que Guarda a data escolhida pelo usuario
         val calendarBox = Calendar.getInstance()
 
-        //  função para recuperação dos dados no menu editar perfil
+        //Função para recuperação dos dados no menu editar perfil
         val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
         if (userData != null) {
             edtTextName.setText(userData?.name)
@@ -90,6 +99,18 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             edtTextPassword.setText(userData?.password)
             edtTextWeight.setText(userData?.weight)
             edtHeight.setText(userData?.height)
+            if (userData?.gender == "Feminino") {
+                radioButtonFemale.isChecked = true
+            } else {
+                radioButtonMale.isChecked = true
+            }
+            if (userData?.goal == "Manter") {
+                radioButtonKeep.isChecked = true
+            } else if (userData?.goal == "Ganhar") {
+                radioButtonGain.isChecked = true
+            } else {
+                radioButtonLose.isChecked = true
+            }
 
         }
 
@@ -109,7 +130,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         dataTextView = findViewById(R.id.date_tv)
 
         //Guarda a data escolhida pelo usuario
-            val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
+        val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
@@ -128,9 +149,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             ).show()
         }
 
-        //Spinner
-        val spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
-        val spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
         //Escolhe o Array de opções e aplica na UI
         ArrayAdapter.createFromResource(
@@ -196,11 +214,10 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
-
         saveBtn = findViewById(R.id.save_btn)
-
         saveBtn.setOnClickListener {
 
+            println(genderRadioGroup.checkedRadioButtonId)
             val user = User(
                 nameText.toString(),
                 emailText.toString(),
@@ -358,5 +375,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             .setNegativeButton("Não") { dialog, which -> }
             .create()
         alertDialog.show()
+    }
+
+    private fun recoverExerciseWeekly (){
+
     }
 }
