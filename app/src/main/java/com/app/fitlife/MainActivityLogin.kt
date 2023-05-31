@@ -10,6 +10,8 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.lifecycle.lifecycleScope
 import androidx.room.Room
+import com.app.fitlife.SignUpActivity.Companion.REGISTER_REQUEST_CODE
+import com.app.fitlife.SignUpActivity.Companion.SOURCE_LOGIN
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
@@ -42,8 +44,9 @@ class MainActivityLogin : AppCompatActivity() {
         }
 
         registerButton.setOnClickListener {
-            val intent = Intent(this, SignUpActivity::class.java)
-            startActivity(intent)
+            val registerIntent = Intent(this, SignUpActivity::class.java)
+            intent.putExtra("source",SOURCE_LOGIN)
+            startActivityForResult(registerIntent, REGISTER_REQUEST_CODE)
         }
     }
 

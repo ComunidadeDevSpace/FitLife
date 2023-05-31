@@ -17,7 +17,6 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatRadioButton
-import androidx.appcompat.widget.Toolbar
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -31,7 +30,6 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
-import kotlin.text.Typography.times
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
@@ -42,63 +40,85 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataButton: CardView
     private lateinit var saveBtn: Button
     private lateinit var dao: UserDao
-    private var date: String? = null
-    var SpinnerWeek: String = ""
-    var SpinnerType: String = ""
+    private var selectedDate: String? = null
+    var SpinnerWeekString: String = ""
+    var SpinnerTypeString: String = ""
+    var spinnerTypeSelection: Int? = null
+    private var userData: User? = null
+
+    private lateinit var passwordWarning:TextView
+    private lateinit var edtTextName:TextView
+    private lateinit var edtTextEmail:TextView
+    private lateinit var edtTextPassword:TextView
+    private lateinit var edtTextWeight:TextView
+    private lateinit var edtHeight:TextView
+
+    private lateinit var gender:String
+    private lateinit var goal:String
+
+
+    private lateinit var genderRadioGroup:RadioGroup
+    private lateinit var goalsRadioGroup:RadioGroup
+    private lateinit var radioButtonFemale:RadioButton
+    private lateinit var radioButtonGain:RadioButton
+    private lateinit var radioButtonKeep:RadioButton
+
+    private var source: Int = -1
+
+    private lateinit var resultIntent:Intent
+
+
+    companion object{
+        const val SOURCE_LOGIN = 1
+        const val SOURCE_MAIN = 2
+        const val REGISTER_REQUEST_CODE = 0
+        const val RESULT_REGISTER_SUCCESSFUL_LOGIN = 1001
+        const val RESULT_REGISTER_SUCCESSFUL_MAIN = 1002
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_sign_up)
 
         // recuperação dos dados no menu editar perfil
-        val passwordWarning = findViewById<TextView>(R.id.warning_tv)
-        val edtTextName = findViewById<EditText>(R.id.name_edt_text)
-        val edtTextEmail = findViewById<EditText>(R.id.email_edt_text)
-        val edtTextPassword = findViewById<EditText>(R.id.edt_text_password)
-        val edtTextWeight = findViewById<EditText>(R.id.weight_edt_text)
-        val edtHeight = findViewById<EditText>(R.id.height_edt_text)
+        passwordWarning = findViewById<TextView>(R.id.warning_tv)
+        edtTextName = findViewById<EditText>(R.id.name_edt_text)
+        edtTextEmail = findViewById<EditText>(R.id.email_edt_text)
+        edtTextPassword = findViewById<EditText>(R.id.edt_text_password)
+        edtTextWeight = findViewById<EditText>(R.id.weight_edt_text)
+        edtHeight = findViewById<EditText>(R.id.height_edt_text)
+        dataTextView = findViewById(R.id.time_tv)
+
 
 
         //CheckBox Goals
-        val radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
+         radioButtonGain = findViewById<RadioButton>(R.id.rb_gain)
         val radioButtonLose = findViewById<RadioButton>(R.id.rb_lose)
-        val goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
-        val radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
+        goalsRadioGroup = findViewById<RadioGroup>(R.id.rg_goal)
+        radioButtonKeep = findViewById<RadioButton>(R.id.rb_keep)
 
 
         //CheckBox Gender
-        val genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
-        val radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
+        genderRadioGroup = findViewById<RadioGroup>(R.id.gender_radio_group)
+        radioButtonFemale = findViewById<RadioButton>(R.id.rb_female)
         val radioButtonMale = findViewById<RadioButton>(R.id.rb_male)
-
-
-        val nameText = edtTextName.text
-        val emailText = edtTextEmail.text
-        val passwordText = edtTextPassword.text
-        val weightText = edtTextWeight.text
-        val heightText = edtHeight.text
-        //val gender = if(genderRadioGroup.checkedRadioButtonId == radioButtonFemale.id) {"Feminino"} else {"Masculino"}
-        //val goal = when (goalsRadioGroup.checkedRadioButtonId) {radioButtonGain.id -> {"Ganhar"}radioButtonLose.id -> {"Emagrecer"}else -> { "Manter" } }
-        val gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
-        val goal =
-            if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
+        gender = if (radioButtonFemale.isSelected) "Feminino" else "Masculino"
+        goal = if (radioButtonKeep.isSelected) "Manter" else if (radioButtonGain.isSelected) "Ganhar" else "Emagrecer"
 
         //Spinner
         spinnerWeek = findViewById<Spinner>(R.id.spinner_weekly)
         spinnerExercise = findViewById<Spinner>(R.id.spinner_exercise_type)
 
 
-        //Variavel que Guarda a data escolhida pelo usuario
-        val calendarBox = Calendar.getInstance()
+        userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
 
-        //Função para recuperação dos dados no menu editar perfil
-        val userData = intent.getSerializableExtra("EXTRA_USER_DATA") as User?
         if (userData != null) {
-            edtTextName.setText(userData?.name)
-            edtTextEmail.setText(userData?.email)
-            edtTextPassword.setText(userData?.password)
-            edtTextWeight.setText(userData?.weight)
-            edtHeight.setText(userData?.height)
+            edtTextName.text = userData?.name
+            edtTextEmail.text = userData?.email
+            edtTextPassword.text = userData?.password
+            edtTextWeight.text = userData?.weight
+            edtHeight.text = userData?.height
+            dataTextView.text = userData?.birth
             if (userData?.gender == "Feminino") {
                 radioButtonFemale.isChecked = true
             } else {
@@ -114,6 +134,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+
+
+
         //Inicialização do DataBase a partir da classe Application.
         dataBase = (application as FitLifeApplication).getAppDataBase()
         dao = dataBase.userDao()
@@ -126,15 +149,18 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
 
         //Calendario
+
         dataButton = findViewById(R.id.data_cardview)
-        dataTextView = findViewById(R.id.date_tv)
+
 
         //Guarda a data escolhida pelo usuario
+        val calendarBox = Calendar.getInstance()
         val dateBox = DatePickerDialog.OnDateSetListener { datePicker, year, month, day ->
             calendarBox.set(Calendar.YEAR, year)
             calendarBox.set(Calendar.MONTH, month)
             calendarBox.set(Calendar.DAY_OF_MONTH, day)
-            //Atualiza o texto da EditText
+            val dateFormat = SimpleDateFormat("dd/MM/yyyy", Locale.getDefault())
+            selectedDate = dateFormat.format(calendarBox.time)
             updateText(calendarBox)
         }
 
@@ -169,9 +195,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 position: Int,
                 id: Long
             ) {
-                val selectedWeeklyExercise = parent?.getItemAtPosition(position).toString()
-                //Guarda a opção escolhida pelo usuario
-                SpinnerWeek = selectedWeeklyExercise
+                val selectedWeeklyExercise = parent?.getItemAtPosition(position)
+                SpinnerWeekString = selectedWeeklyExercise.toString()
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -200,9 +226,10 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 position: Int,
                 id: Long
             ) {
-                val selectedExerciseType = parent?.getItemAtPosition(position).toString()
-                //Guarda a opção escolhida pelo usuario
-                SpinnerType = selectedExerciseType
+                val selectedExerciseType = parent?.getItemAtPosition(position).toString().toIntOrNull()
+                spinnerTypeSelection = selectedExerciseType
+                SpinnerTypeString = selectedExerciseType.toString()
+
             }
 
             override fun onNothingSelected(parent: AdapterView<*>?) {
@@ -214,68 +241,149 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+
+
+        resultIntent = Intent()
+
         saveBtn = findViewById(R.id.save_btn)
         saveBtn.setOnClickListener {
 
             println(genderRadioGroup.checkedRadioButtonId)
-            val user = User(
-                nameText.toString(),
-                emailText.toString(),
-                passwordText.toString(),
-                date.toString(),
-                weightText.toString(),
-                heightText.toString(),
-                gender,
-                goal,
-                SpinnerWeek,
-                SpinnerType
-            )
 
-
-            val intent = Intent(this, MainActivityLogin::class.java)
-            startActivity(intent)
-
-
-            //Verifica se os campos não estão vazios
-            if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
-                user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
-                user.weight.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.weeklyExercise.isNotEmpty()
-            ) {
-                //Verifica se a senha é valida
-                if (isPasswordValid(passwordText.toString())) {
-
-                    lifecycleScope.launch {
-                        withContext(IO) {
-                            dao.insert(user)
-                        }
-                    }
-
-                } else if (!isPasswordValid(passwordText.toString())) {
-                    passwordWarning.visibility = View.VISIBLE
-                    Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
-                }
-                //Se os campos estiverem vazios, será mostrado uma mensagem de alerta
+            if (userData != null) {
+                updateUser()
             } else {
-                showEmptyFieldMessage(nameText.isEmpty(), R.id.emptyFieldName)
-                showEmptyFieldMessage(emailText.isEmpty(), R.id.emptyFieldEmail)
-                showEmptyFieldMessage(passwordText.isEmpty(), R.id.emptyFieldPassword)
-                showEmptyFieldMessage(date == null, R.id.emptyFieldDate)
-                showEmptyFieldMessage(weightText.isEmpty(), R.id.emptyFieldWeight)
-                showEmptyFieldMessage(heightText.isEmpty(), R.id.emptyFieldHeight)
-                showEmptyFieldMessage(
-                    genderRadioGroup.checkedRadioButtonId == -1,
-                    R.id.emptyFieldGender
-                )
-                showEmptyFieldMessage(
-                    goalsRadioGroup.checkedRadioButtonId == -1,
-                    R.id.emptyFieldGoal
-                )
-
+                insertUser()
             }
+
         }
 
     }
+    private fun updateUser() {
+        val birth = if (selectedDate.isNullOrEmpty()) userData!!.birth else selectedDate
+        val newUser = User(
+            name = edtTextName.text.toString(),
+            email = userData?.email.toString(),
+            password = edtTextPassword.text.toString(),
+            birth = birth.toString(),
+            weight = edtTextWeight.text.toString(),
+            height = edtHeight.text.toString(),
+            gender = gender,
+            goal = goal,
+            weeklyExercise = SpinnerWeekString,
+            exerciseType = SpinnerTypeString
+        )
 
+        if (newUser.name.isNotEmpty() && newUser.email.isNotEmpty() &&
+            newUser.password.isNotEmpty() && newUser.birth.isNotEmpty() && newUser.weight.isNotEmpty() &&
+            newUser.height.isNotEmpty() && newUser.gender.isNotEmpty() && newUser.goal.isNotEmpty() && newUser.weeklyExercise.isNotEmpty() && newUser.exerciseType.isNotEmpty()
+        ) {
+            if (isPasswordValid(edtTextPassword.text.toString())) {
+
+                lifecycleScope.launch {
+                    withContext(IO) {
+                        dao.update(newUser)
+                    }
+                }
+
+                userData.apply {
+                    this?.name = newUser.name
+                    this?.email = newUser.email
+                    this?.password = newUser.password
+                    this?.birth = newUser.birth
+                    this?.weight = newUser.weight
+                    this?.height = newUser.height
+                    this?.gender = newUser.gender
+                    this?.goal = newUser.goal
+                    this?.weeklyExercise = newUser.weeklyExercise
+                    this?.exerciseType = newUser.exerciseType
+                }
+
+
+                if (source == SOURCE_MAIN) {
+                    setResult(RESULT_REGISTER_SUCCESSFUL_MAIN, resultIntent)
+                }
+                finish()
+
+            } else if (!isPasswordValid(edtTextPassword.text.toString())) {
+                passwordWarning.visibility = View.VISIBLE
+                Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
+            }
+
+        } else {
+            showEmptyFieldMessage(edtTextName.text.isEmpty(), R.id.emptyFieldName)
+            showEmptyFieldMessage(edtTextEmail.text.isEmpty(), R.id.emptyFieldEmail)
+            showEmptyFieldMessage(edtTextPassword.text.isEmpty(), R.id.emptyFieldPassword)
+            showEmptyFieldMessage(edtTextWeight.text.isEmpty(), R.id.emptyFieldWeight)
+            showEmptyFieldMessage(edtHeight.text.isEmpty(), R.id.emptyFieldHeight)
+
+        }
+    }
+
+    fun insertUser(){
+        val user = User(
+            name = edtTextName.text.toString(),
+            email = edtTextEmail.text.toString(),
+            password = edtTextPassword.text.toString(),
+            birth = selectedDate.toString(),
+            weight = edtTextWeight.text.toString(),
+            height = edtHeight.text.toString(),
+            gender = gender,
+            goal = goal,
+            weeklyExercise = SpinnerWeekString,
+            exerciseType = SpinnerTypeString
+        )
+
+
+        if (user.name.isNotEmpty() && user.email.isNotEmpty() &&
+            user.password.isNotEmpty() && user.birth.isNotEmpty() && user.weight.isNotEmpty() &&
+            user.height.isNotEmpty() && user.gender.isNotEmpty() && user.goal.isNotEmpty() && user.weeklyExercise.isNotEmpty() && user.exerciseType.isNotEmpty()
+        ) {
+            if (isPasswordValid(edtTextPassword.text.toString())) {
+
+                lifecycleScope.launch {
+                    withContext(IO) {
+                        dao.insert(user)
+                    }
+                }
+                if (source == SOURCE_LOGIN) {
+                    setResult(RESULT_REGISTER_SUCCESSFUL_LOGIN, resultIntent)
+                }
+                finish()
+
+            } else if (!isPasswordValid(edtTextPassword.text.toString())) {
+                passwordWarning.visibility = View.VISIBLE
+                Snackbar.make(saveBtn, "Senha inválida", Snackbar.LENGTH_LONG).show()
+            }
+
+        } else {
+            showEmptyFieldMessage(edtTextName.text.isEmpty(), R.id.emptyFieldName)
+            showEmptyFieldMessage(edtTextEmail.text.isEmpty(), R.id.emptyFieldEmail)
+            showEmptyFieldMessage(edtTextPassword.text.isEmpty(), R.id.emptyFieldPassword)
+            showEmptyFieldMessage(selectedDate == null, R.id.emptyFieldDate)
+            showEmptyFieldMessage(edtTextWeight.text.isEmpty(), R.id.emptyFieldWeight)
+            showEmptyFieldMessage(edtHeight.text.isEmpty(), R.id.emptyFieldHeight)
+            showEmptyFieldMessage(genderRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGender)
+            showEmptyFieldMessage(goalsRadioGroup.checkedRadioButtonId == -1, R.id.emptyFieldGoal)
+
+        }
+
+    }
+    override fun onActivityResult(requestCode: Int, resultCode: Int, data: Intent?) {
+        super.onActivityResult(requestCode, resultCode, data)
+
+        if (requestCode == REGISTER_REQUEST_CODE) {
+            if (resultCode == RESULT_REGISTER_SUCCESSFUL_LOGIN) {
+                val loginIntent = Intent(this, MainActivityLogin::class.java)
+                startActivity(loginIntent)
+                finish()
+            } else if (resultCode == RESULT_REGISTER_SUCCESSFUL_MAIN) {
+                val mainIntent = Intent(this, TelaPrincipalBotoesCalculo::class.java)
+                startActivity(mainIntent)
+                finish()
+            }
+        }
+    }
 
     //Se os RadioButton forem selecionados, será setado uma cor
     fun onRadioButtonClicked(view: View) {
@@ -360,8 +468,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         val simple = SimpleDateFormat(dateFormat, Locale.UK)
         dataTextView.text = simple.format(calendar.time)
         dataTextView.setTextColor(Color.BLACK)
-        val dateString = simple.format(calendar.time).toString()
-        date = dateString
     }
 
     //Mostra uma mensagem ao clicar no botão de salvar.
@@ -377,7 +483,4 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         alertDialog.show()
     }
 
-    private fun recoverExerciseWeekly (){
-
-    }
 }
