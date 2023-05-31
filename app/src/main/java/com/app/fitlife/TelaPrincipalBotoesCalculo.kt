@@ -48,7 +48,6 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
         val userData = intent.getSerializableExtra("EXTRA_RESULT") as User
 
-
         lifecycleScope.launch(Dispatchers.IO) {
             user = dao.getUserByEmail(userData.email)
             withContext(Dispatchers.Main) {
@@ -113,8 +112,12 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
                 }
             }
         }
-
-
+        val btnWaterIngestion : Button = findViewById(R.id.waterIngestion)
+        btnWaterIngestion.setOnClickListener{
+            val result = user!!.weight.toDouble() * 0.35
+            val intent = WaterIngestion.start(this, result, user!!)
+            startActivity(intent)
+        }
     }
 
     override fun onCreateOptionsMenu(menu: Menu?): Boolean {
@@ -171,4 +174,8 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         return 655.1 + weight + height - age
     }
 
+    private fun waterIngestionCalc (user: User): Double {
+        val weight : Double = user.weight.toDouble() * 0.35
+        return weight * 0.35
+    }
 }

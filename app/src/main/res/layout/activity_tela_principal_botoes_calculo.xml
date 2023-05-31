@@ -48,14 +48,13 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
-
     <androidx.appcompat.widget.AppCompatButton
         android:id="@+id/btn_calories"
         style="@style/ButtonPrimary"
         android:layout_width="260dp"
         android:layout_height="38dp"
         android:layout_centerHorizontal="true"
-        android:layout_marginTop="199dp"
+        android:layout_marginTop="200dp"
         android:background="@drawable/save_button_layout"
         android:backgroundTint="@color/blue_02"
         android:drawableLeft="@drawable/firecalorias"
@@ -65,5 +64,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
+    <androidx.appcompat.widget.AppCompatButton
+        android:id="@+id/waterIngestion"
+        style="@style/ButtonPrimary"
+        android:layout_width="260dp"
+        android:layout_height="38dp"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="250dp"
+        android:background="@drawable/save_button_layout"
+        android:backgroundTint="@color/blue_02"
+        android:drawableLeft="@drawable/baseline_water_drop_24"
+        android:fontFamily="@font/poppins_bold"
+        android:text="Ingestão de Água"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
 </RelativeLayout>
