@@ -8,15 +8,15 @@ import java.util.Date
 
 @Entity
 data class User(
-    val name:String,
+    var name:String,
     @PrimaryKey
-    val email:String,
-    val password: String,
-    val birth: String,
-    val weight: String,
-    val height: String,
-    val gender: String,
-    val goal: String,
-    val weeklyExercise: String,
-    val exerciseType :String
+    var email:String,
+    var password: String,
+    var birth: String,
+    var weight: String,
+    var height: String,
+    var gender: String,
+    var goal: String,
+    var weeklyExercise: String,
+    var exerciseType :String
 ):Serializable
