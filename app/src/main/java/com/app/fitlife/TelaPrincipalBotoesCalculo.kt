@@ -11,6 +11,8 @@ import android.view.MenuItem
 import android.widget.Button
 import android.widget.TextView
 import androidx.lifecycle.lifecycleScope
+import com.app.fitlife.SignUpActivity.Companion.REGISTER_REQUEST_CODE
+import com.app.fitlife.SignUpActivity.Companion.SOURCE_MAIN
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
@@ -45,6 +47,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
         dao = database.userDao()
         val nome = findViewById<TextView>(R.id.tv_nome_user)
+
 
         val userData = intent.getSerializableExtra("EXTRA_RESULT") as User
 
@@ -129,8 +132,9 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
             R.id.menu_editar_perfil -> {
                 val intent = Intent(this, SignUpActivity::class.java).apply {
                     putExtra("EXTRA_USER_DATA", user)
+                    putExtra("source", SOURCE_MAIN)
                 }
-                startActivity(intent)
+                startActivityForResult(intent, REGISTER_REQUEST_CODE)
                 true
             }
 
