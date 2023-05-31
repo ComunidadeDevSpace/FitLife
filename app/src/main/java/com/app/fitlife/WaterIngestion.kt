@@ -14,7 +14,8 @@ import org.w3c.dom.Text
 class WaterIngestion : AppCompatActivity() {
 
     companion object {
-        fun start(context: Context, user: User): Intent {
+
+        fun start(context: Context, user: User, result:Double): Intent {
             return Intent(context, WaterIngestion::class.java).apply {
                 putExtra("EXTRA_RESULT", user)
                 putExtra("EXTRA_WATER_INGESTION_RESULT", result)
@@ -22,10 +23,10 @@ class WaterIngestion : AppCompatActivity() {
         }
     }
 
-    val btnWaterIngestion : Button = findViewById(R.id.waterIngestion)
+//    val btnWaterIngestion : Button = findViewById(R.id.waterIngestion)
 
-    private lateinit var dao: UserDao
-    private var user: User? = null
+//    private lateinit var dao: UserDao
+//    private var user: User? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
 

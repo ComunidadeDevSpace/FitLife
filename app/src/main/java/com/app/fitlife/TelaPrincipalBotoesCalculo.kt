@@ -117,8 +117,9 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         }
         val btnWaterIngestion : Button = findViewById(R.id.waterIngestion)
         btnWaterIngestion.setOnClickListener{
-            val result = user!!.weight.toDouble() * 0.35
-            val intent = WaterIngestion.start(this, result, user!!)
+            val weight = user!!.weight.toDouble()
+            val result = weight * 0.035
+            val intent = WaterIngestion.start(this, user!!, result)
             startActivity(intent)
         }
     }
@@ -149,9 +150,7 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
 
             else -> super.onOptionsItemSelected(item)
         }
-
     }
-
 
     private fun ageCalculate(user: User): Int {
         val formatter = if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
@@ -176,10 +175,5 @@ class TelaPrincipalBotoesCalculo : AppCompatActivity() {
         val height = user.height.toDouble() * 5
         val age = ageCalculate(user) * 4.7
         return 655.1 + weight + height - age
-    }
-
-    private fun waterIngestionCalc (user: User): Double {
-        val weight : Double = user.weight.toDouble() * 0.35
-        return weight * 0.35
     }
 }
