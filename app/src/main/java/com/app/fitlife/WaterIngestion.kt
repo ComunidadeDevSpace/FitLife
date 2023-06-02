@@ -4,12 +4,8 @@ import android.content.Context
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-import android.widget.Button
 import android.widget.TextView
-import com.app.fitlife.R
 import com.app.fitlife.data.User
-import com.app.fitlife.data.UserDao
-import org.w3c.dom.Text
 
 class WaterIngestion : AppCompatActivity() {
 
@@ -24,7 +20,6 @@ class WaterIngestion : AppCompatActivity() {
     }
 
 //    val btnWaterIngestion : Button = findViewById(R.id.waterIngestion)
-
 //    private lateinit var dao: UserDao
 //    private var user: User? = null
 
@@ -33,7 +28,10 @@ class WaterIngestion : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_water_ingestion)
         val result = intent.getDoubleExtra("EXTRA_WATER_INGESTION_RESULT", 0.1)
-        val tvResult = findViewById<TextView>(R.id.tvResult)
+        val tvResult = findViewById<TextView>(R.id.textview_result)
         tvResult.text = result.toString()
+        val userData = intent?.getSerializableExtra("EXTRA_RESULT") as User?
+        val nome: TextView = findViewById(R.id.tv_name)
+        nome.text = userData?.name
     }
 }
