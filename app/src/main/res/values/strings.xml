@@ -19,7 +19,7 @@
         <item>7 vezes na semana</item>
     </string-array>
     
-    <string-array name="Stretch_spinner">
+    <string-array name="StretchTimes">
         <item> 1x </item>
         <item> 2x </item>
         <item> 3x </item>

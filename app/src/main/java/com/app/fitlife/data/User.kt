@@ -18,5 +18,5 @@ data class User(
     var gender: String,
     var goal: String,
     var weeklyExercise: String,
-    var exerciseType :String
+    var exerciseType :String,
 ):Serializable
