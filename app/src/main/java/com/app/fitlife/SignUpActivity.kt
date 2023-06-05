@@ -1,8 +1,18 @@
 package com.app.fitlife
 
+import android.app.AlarmManager
 import android.app.DatePickerDialog
+import android.app.Notification
+import android.app.NotificationChannel
+import android.app.NotificationManager
+import android.app.PendingIntent
+import android.app.TimePickerDialog
+import android.content.BroadcastReceiver
+import android.content.Context
+import android.content.Context.NOTIFICATION_SERVICE
 import android.content.Intent
 import android.graphics.Color
+import android.os.Build
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
@@ -20,11 +30,13 @@ import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
+import androidx.core.app.NotificationCompat
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.app.fitlife.data.AppDataBase
 import com.app.fitlife.data.User
 import com.app.fitlife.data.UserDao
+import com.google.android.material.card.MaterialCardView
 import com.google.android.material.snackbar.Snackbar
 import java.text.SimpleDateFormat
 import java.util.Calendar
@@ -283,8 +295,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 }
             }
 
-
-
         val selectDataStretchTextView = findViewById<TextView>(R.id.alongamento_data_tv)
         val mondayCheckBox = findViewById<CheckBox>(R.id.monday_rb)
         val tuesdayCheckBox = findViewById<CheckBox>(R.id.tues_rb)
@@ -336,11 +346,67 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+        // Aqui voce cria a notificação nas configurações, então lá voce desabilitar ou habilitar
+        val channelId = "fitlife_channel_id" // Identificador exclusivo para o canal
+        val channelName = "FitLife alongamento notificação" // Nome do canal
+        val channelDescription = "Canal de Notificações do FitLife" // Descrição do canal
+        val importance = NotificationManager.IMPORTANCE_HIGH // Nível de importância do canal
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.O) {
+            val channel = NotificationChannel(channelId, channelName, importance).apply {
+                description = channelDescription
+            }
+
+            val timePicker = findViewById<MaterialCardView>(R.id.stretch_time1_cardView)
+            val alogamentoTv = findViewById<TextView>(R.id.alongamento_time_tv)
+            val notificationId = 1
+            val notificationManager = applicationContext.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+            val builder = NotificationCompat.Builder(this, channelId)
+                .setSmallIcon(R.drawable.baseline_access_time_24)
+                .setContentTitle("Chegou a hora de se alongar")
+                .setContentText("Pare tudo que está fazendo e venha se alongar comigo")
 
 
+            // Aqui você cria o Dialog para selecionar o horario
+            timePicker.setOnClickListener {
+                val cal = Calendar.getInstance()
+                val timeSetListener = TimePickerDialog.OnTimeSetListener { timePicker, hour, minute ->
+                    cal.set(Calendar.HOUR_OF_DAY, hour)
+                    cal.set(Calendar.MINUTE, minute)
 
+                    alogamentoTv.text = SimpleDateFormat("HH:mm").format(cal.time)
 
+                    // Aqui é o horario que o usuario seleciona
+                    val selectedTime = cal.timeInMillis
 
+                    // Aqui é a hora atual
+                    val currentTime = System.currentTimeMillis()
+
+                    // Aqui calcula a diferença entre o horario que o usuario selecionou e o horario atual
+                    val timeDifference = selectedTime - currentTime
+
+                    // Verificar se a hora selecionada é anterior à hora atual
+                    // Se for, adicionar um dia para agendar o alarme para o próximo dia
+                    if (timeDifference < 0) {
+                        cal.add(Calendar.DAY_OF_YEAR, 1)
+                    }
+
+                    // Agendar a notificação para o horário selecionado
+                    val intent = Intent(applicationContext, NotificationReceiver::class.java)
+                    intent.putExtra("notificationId", notificationId)
+                    intent.putExtra("notification", builder.build())
+                    val pendingIntent = PendingIntent.getBroadcast(applicationContext, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT or PendingIntent.FLAG_MUTABLE)
+
+                    val alarmManager = getSystemService(ALARM_SERVICE) as AlarmManager
+                    alarmManager.setExact(AlarmManager.RTC_WAKEUP, cal.timeInMillis, pendingIntent)
+
+                    notificationManager.createNotificationChannel(channel)
+                }
+
+                TimePickerDialog(this, timeSetListener, cal.get(Calendar.HOUR_OF_DAY), cal.get(Calendar.MINUTE), false).show()
+                // usar isso >.style.TimePickerDialogTheme,< para mudar a cor do dialog
+            }
+        }
 
     }
 
@@ -593,4 +659,13 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
         alertDialog.show()
     }
 
+}
+
+class NotificationReceiver : BroadcastReceiver() {
+    override fun onReceive(context: Context, intent: Intent) {
+        val notificationManager = context.getSystemService(NOTIFICATION_SERVICE) as NotificationManager
+        val notificationId = intent.getIntExtra("notificationId", 0)
+        val notification = intent.getParcelableExtra<Notification>("notification")
+        notificationManager.notify(notificationId, notification)
+    }
 }

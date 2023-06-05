@@ -11,8 +11,6 @@ import androidx.room.Update
 @Dao
 interface UserDao {
 
-
-
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     fun insert(user: User)
 
