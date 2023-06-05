@@ -9,6 +9,7 @@ import android.view.View
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
 import android.widget.Button
+import android.widget.CheckBox
 import android.widget.EditText
 import android.widget.ImageView
 import android.widget.RadioButton
@@ -17,6 +18,7 @@ import android.widget.Spinner
 import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatRadioButton
+import androidx.appcompat.widget.SwitchCompat
 import androidx.cardview.widget.CardView
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
@@ -43,7 +45,6 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private var selectedDate: String? = null
     var SpinnerWeekString: String = ""
     var SpinnerTypeString: String = ""
-    var spinnerTypeSelection: Int? = null
     private var userData: User? = null
 
     private lateinit var passwordWarning:TextView
@@ -62,6 +63,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var radioButtonFemale:RadioButton
     private lateinit var radioButtonGain:RadioButton
     private lateinit var radioButtonKeep:RadioButton
+
 
     private var source: Int = -1
 
@@ -132,6 +134,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 radioButtonLose.isChecked = true
             }
 
+
         }
 
 
@@ -196,7 +199,7 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 id: Long
             ) {
                 val selectedWeeklyExercise = parent?.getItemAtPosition(position)
-                SpinnerWeekString = selectedWeeklyExercise.toString()
+
 
             }
 
@@ -226,9 +229,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 position: Int,
                 id: Long
             ) {
-                val selectedExerciseType = parent?.getItemAtPosition(position).toString().toIntOrNull()
-                spinnerTypeSelection = selectedExerciseType
+                val selectedExerciseType = parent?.getItemAtPosition(position)
                 SpinnerTypeString = selectedExerciseType.toString()
+
 
             }
 
@@ -258,8 +261,110 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
 
+        //Alongamento
+
+            val switchAlongamento = findViewById<SwitchCompat>(R.id.switch_alongamentos)
+            val spinnerStretch = findViewById<Spinner>(R.id.spinner_alongamento)
+            spinnerStretch.onItemSelectedListener = object : AdapterView.OnItemSelectedListener {
+                override fun onItemSelected(
+                    parent: AdapterView<*>?,
+                    view: View?,
+                    position: Int,
+                    id: Long
+                ) {
+                    if (switchAlongamento.isChecked){
+                        timeBoxStretch(position)
+                    }
+
+                }
+
+                override fun onNothingSelected(parent: AdapterView<*>?) {
+                    TODO("Not yet implemented")
+                }
+            }
+
+
+
+        val selectDataStretchTextView = findViewById<TextView>(R.id.alongamento_data_tv)
+        val mondayCheckBox = findViewById<CheckBox>(R.id.monday_rb)
+        val tuesdayCheckBox = findViewById<CheckBox>(R.id.tues_rb)
+        val wednesdayCheckBox = findViewById<CheckBox>(R.id.wed_rb)
+        val thursdayCheckBox = findViewById<CheckBox>(R.id.thurs_rb)
+        val fridayCheckBox = findViewById<CheckBox>(R.id.friday_rb)
+        val saturdayCheckBox = findViewById<CheckBox>(R.id.sat_rb)
+        val sundayCheckBox = findViewById<CheckBox>(R.id.sunday_rb)
+        val dailyStretchTextView = findViewById<TextView>(R.id.repetição_dia_tv)
+        val dailyStretchSpinner = findViewById<CardView>(R.id.alogangamento_spinner)
+        val selectTimeTextView = findViewById<TextView>(R.id.stretch_time_tv)
+        val selectTimeOne = findViewById<CardView>(R.id.stretch_time1_cardView)
+
+
+
+        switchAlongamento.setOnClickListener {
+
+            if (switchAlongamento.isChecked) {
+                selectDataStretchTextView.visibility = View.VISIBLE
+                dailyStretchTextView.visibility = View.VISIBLE
+                dailyStretchSpinner.visibility = View.VISIBLE
+                selectTimeTextView.visibility = View.VISIBLE
+                selectTimeOne.visibility = View.VISIBLE
+                mondayCheckBox.visibility = View.VISIBLE
+                tuesdayCheckBox.visibility = View.VISIBLE
+                wednesdayCheckBox.visibility = View.VISIBLE
+                thursdayCheckBox.visibility = View.VISIBLE
+                fridayCheckBox.visibility = View.VISIBLE
+                saturdayCheckBox.visibility = View.VISIBLE
+                sundayCheckBox.visibility = View.VISIBLE
+
+
+
+            } else {
+                selectDataStretchTextView.visibility = View.GONE
+                dailyStretchTextView.visibility = View.GONE
+                dailyStretchSpinner.visibility = View.GONE
+                selectTimeTextView.visibility = View.GONE
+                selectTimeOne.visibility = View.GONE
+                mondayCheckBox.visibility = View.GONE
+                tuesdayCheckBox.visibility = View.GONE
+                wednesdayCheckBox.visibility = View.GONE
+                thursdayCheckBox.visibility = View.GONE
+                fridayCheckBox.visibility = View.GONE
+                saturdayCheckBox.visibility = View.GONE
+                sundayCheckBox.visibility = View.GONE
+
+            }
+
+        }
+
+
+
+
+
+
+
     }
-    private fun updateUser() {
+
+    private fun timeBoxStretch(position:Int){
+        val selectTimeTwo = findViewById<CardView>(R.id.stretch_time2_cardView)
+        val selectTimeThree = findViewById<CardView>(R.id.stretch_time3_cardView)
+        when (position) {
+            1 -> {
+                selectTimeTwo.visibility = View.VISIBLE
+                selectTimeThree.visibility = View.GONE
+            }
+            2 -> {
+                selectTimeTwo.visibility = View.VISIBLE
+                selectTimeThree.visibility = View.VISIBLE
+            }
+            else -> {
+                selectTimeTwo.visibility = View.GONE
+                selectTimeThree.visibility = View.GONE
+            }
+        }
+    }
+
+
+            private fun updateUser() {
         val birth = if (selectedDate.isNullOrEmpty()) userData!!.birth else selectedDate
         val newUser = User(
             name = edtTextName.text.toString(),
@@ -387,6 +492,9 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
     //Se os RadioButton forem selecionados, será setado uma cor
     fun onRadioButtonClicked(view: View) {
+
+
+
         val isSelected = (view as AppCompatRadioButton).isChecked
         when (view.id) {
             R.id.rb_female -> {
@@ -434,6 +542,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
 
         }
     }
+
+
 
     //Verifica se a senha é valida
     private fun isPasswordValid(password: String): Boolean {

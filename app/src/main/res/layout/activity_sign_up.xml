@@ -628,133 +628,126 @@
                 app:layout_constraintTop_toBottomOf="@+id/alongamento_tv"
                 android:visibility="gone"/>
 
-            <RadioGroup
-                android:id="@+id/data_radio_group"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:orientation="horizontal"
+
+            <CheckBox
+                android:id="@+id/monday_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Seg"
+                android:textSize="12sp"
                 app:layout_constraintStart_toStartOf="parent"
                 app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                android:visibility="gone">
+                android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/monday_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Seg"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                     />
+            <CheckBox
+                android:id="@+id/tues_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Ter"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/monday_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/tues_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Ter"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/wed_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Qua"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
+            <CheckBox
+                android:id="@+id/wed_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Qua"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/tues_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/thurs_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Qui"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
+            <CheckBox
+                android:id="@+id/thurs_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Qui"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/wed_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/friday_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Sex"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/sat_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Sab"
-                    android:textSize="12sp"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
+            <CheckBox
+                android:id="@+id/friday_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Sex"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/thurs_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
 
-                <androidx.appcompat.widget.AppCompatRadioButton
-                    android:id="@+id/sunday_rb"
-                    style="@style/signup_check"
-                    android:layout_width="40dp"
-                    android:layout_height="40dp"
-                    android:layout_weight="1"
-                    android:layout_marginTop="6dp"
-                    android:layout_marginStart="15dp"
-                    android:background="@drawable/radio_group_alongamento_selected"
-                    android:button="@color/white"
-                    android:gravity="center"
-                    android:onClick="onRadioButtonClicked"
-                    android:text="Dom"
-                    android:textSize="12sp"
-                    android:checked="true"
-                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
-                    />
+            <CheckBox
+                android:id="@+id/sat_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Sab"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/friday_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
 
-            </RadioGroup>
+            <CheckBox
+                android:id="@+id/sunday_rb"
+                style="@style/signup_check"
+                android:layout_width="40dp"
+                android:layout_height="40dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="13dp"
+                android:layout_weight="1"
+                android:background="@drawable/radio_group_alongamento_selected"
+                android:button="@color/white"
+                android:gravity="center"
+                android:text="Dom"
+                android:textSize="12sp"
+                app:layout_constraintStart_toEndOf="@+id/sat_rb"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone"/>
+
+
 
             <TextView
                 android:id="@+id/repetição_dia_tv"
@@ -764,7 +757,7 @@
                 android:layout_marginTop="19dp"
                 android:text="Repetições ao dia"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/data_radio_group"
+                app:layout_constraintTop_toBottomOf="@+id/monday_rb"
                 android:visibility="gone"/>
 
             <com.google.android.material.card.MaterialCardView
@@ -788,7 +781,7 @@
             </com.google.android.material.card.MaterialCardView>
 
             <TextView
-                android:id="@+id/textView4"
+                android:id="@+id/stretch_time_tv"
                 style="@style/signup_title"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
@@ -799,14 +792,14 @@
                 android:visibility="gone"/>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/alongamento_cardView"
+                android:id="@+id/stretch_time1_cardView"
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="110dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="6dp"
                 app:cardCornerRadius="3dp"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintTop_toBottomOf="@+id/stretch_time_tv"
                 android:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -843,15 +836,15 @@
 
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/alongamento2_cardView"
+                android:id="@+id/stretch_time2_cardView"
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="110dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="6dp"
                 android:layout_marginStart="14dp"
                 app:cardCornerRadius="3dp"
-                app:layout_constraintStart_toEndOf="@+id/alongamento_cardView"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toEndOf="@+id/stretch_time1_cardView"
+                app:layout_constraintTop_toBottomOf="@+id/stretch_time_tv"
                 android:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -887,15 +880,15 @@
             </com.google.android.material.card.MaterialCardView>
 
             <com.google.android.material.card.MaterialCardView
-                android:id="@+id/alongamento3_cardView"
+                android:id="@+id/stretch_time3_cardView"
                 style="@style/Widget.Material3.CardView.Outlined"
                 android:layout_width="110dp"
                 android:layout_height="39dp"
                 android:layout_marginTop="5dp"
                 android:layout_marginStart="14dp"
                 app:cardCornerRadius="3dp"
-                app:layout_constraintStart_toEndOf="@+id/alongamento2_cardView"
-                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                app:layout_constraintStart_toEndOf="@+id/stretch_time2_cardView"
+                app:layout_constraintTop_toBottomOf="@+id/stretch_time_tv"
                 android:visibility="gone">
 
                 <androidx.constraintlayout.widget.ConstraintLayout
@@ -943,7 +936,7 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@+id/alongamento_cardView" />
+                app:layout_constraintTop_toBottomOf="@+id/stretch_time1_cardView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
