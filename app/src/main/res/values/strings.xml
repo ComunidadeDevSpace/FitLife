@@ -18,10 +18,13 @@
         <item>6 vezes na semana</item>
         <item>7 vezes na semana</item>
     </string-array>
-    
+
     <string-array name="Stretch_spinner">
         <item> 1x </item>
         <item> 2x </item>
         <item> 3x </item>
     </string-array>
+
+    <string name="notification_channel_name">Notification</string>
+
 </resources>

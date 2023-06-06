@@ -18,6 +18,7 @@ import android.widget.TextView
 import androidx.appcompat.app.AlertDialog
 import androidx.appcompat.widget.AppCompatRadioButton
 import androidx.cardview.widget.CardView
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.lifecycle.LifecycleOwner
 import androidx.lifecycle.lifecycleScope
 import com.app.fitlife.data.AppDataBase
@@ -30,6 +31,14 @@ import java.util.Locale
 import kotlinx.coroutines.launch
 import kotlinx.coroutines.Dispatchers.IO
 import kotlinx.coroutines.withContext
+import androidx.work.Constraints
+import androidx.work.ExistingPeriodicWorkPolicy
+import androidx.work.NetworkType
+import androidx.work.OneTimeWorkRequestBuilder
+import androidx.work.PeriodicWorkRequest
+import androidx.work.WorkManager
+import androidx.work.WorkRequest
+import java.util.concurrent.TimeUnit
 
 class SignUpActivity : AppCompatActivity(), LifecycleOwner {
     private lateinit var dataBase: AppDataBase
@@ -254,6 +263,8 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
                 updateUser()
             } else {
                 insertUser()
+                workManager()
+                simpleWork()
             }
 
         }
@@ -482,5 +493,34 @@ class SignUpActivity : AppCompatActivity(), LifecycleOwner {
             .create()
         alertDialog.show()
     }
+    private fun workManager(){
+        val constraints = Constraints.Builder()
+            .setRequiresCharging(false)
+            .setRequiredNetworkType(NetworkType.NOT_REQUIRED)
+            .setRequiresCharging(false)
+            .setRequiresBatteryNotLow(true)
+            .build()
 
+        val request = PeriodicWorkRequest.Builder(
+            Worker::class.java,
+            15,
+            TimeUnit.MINUTES
+        ).setConstraints(constraints)
+            .build()
+
+        WorkManager.getInstance(this)
+            .enqueueUniquePeriodicWork(
+             "id",
+            ExistingPeriodicWorkPolicy.KEEP,
+            request
+            )
+    }
+
+    private fun simpleWork(){
+        val mRequest: WorkRequest = OneTimeWorkRequestBuilder<Worker>()
+            .build()
+        WorkManager.getInstance(this)
+            .enqueue(mRequest)
+    }
 }
+
