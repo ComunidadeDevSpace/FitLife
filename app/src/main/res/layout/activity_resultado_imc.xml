@@ -65,7 +65,7 @@
         android:layout_height="wrap_content"
         android:textAlignment="center"
         android:textColor="@color/black"
-        android:textSize="14dp"
+        android:textSize="14sp"
         tools:hint="Ele é, na verdade, uma pré-obesidade e muitas pessoas nessa faixa já apresentam doenças associadas, como diabetes e hipertensão. Importante rever hábitos e buscar ajuda antes de, por uma série de fatores, entrar na faixa da obesidade pra valer."
         android:layout_marginLeft="55dp"
         android:layout_marginRight="55dp"
@@ -105,6 +105,6 @@ Obesidade Grau III               Acima de 40"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_gravity="center"
-        android:text="CLIQUE AQUI PARA SABER MAIS SOBRE AS CLASSIFICAÇÕES DO IMC"
+        android:text="CLIQUE AQUI PARA SABER MAIS SOBRE AS CLASSIFICAÇÕES DO IMC"/>
 
 </LinearLayout>

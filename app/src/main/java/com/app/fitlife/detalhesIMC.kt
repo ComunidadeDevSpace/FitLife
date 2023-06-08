@@ -9,8 +9,9 @@ class detalhesIMC : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_detalhes_imc)
 
+
         val nomeTv = findViewById<TextView>(R.id.tv_nome_user_imc)
-        val tvResultIMC = findViewById<TextView>(R.id.textview_result)
+        val tvResultIMC = findViewById<TextView>(R.id.textview_resultado)
 
         val imcResultado = intent.getFloatExtra("EXTRAIMC_RESULT", 0.1f)
         val name = intent.getStringExtra("EXTRA_NAME")
