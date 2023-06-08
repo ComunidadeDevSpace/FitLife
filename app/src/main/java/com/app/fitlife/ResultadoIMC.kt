@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.MenuItem
+import android.widget.Button
 import android.widget.TextView
 import com.app.fitlife.R
 import com.app.fitlife.data.User
@@ -66,7 +67,19 @@ class ResultadoIMC : AppCompatActivity() {
         val classificacaoDescricao = classficacaoDescricao(classifcacaoDesc)
 
         classifcacaoDesc.text = classificacaoDescricao
+
+        val btnDetalhe = findViewById<Button>(R.id.BtnDetalhe)
+        btnDetalhe.setOnClickListener {
+            val intent = Intent(this, detalhesIMC::class.java)
+                .apply {
+                    putExtra("EXTRAIMC_RESULT", result)
+                    putExtra("EXTRA_NAME", userData?.name)
+                }
+            startActivity(intent)
+        }
+
     }
+
 
     // função para chamar o texto sobre o resultado da classficação do IMC
     fun classficacaoDescricao(tvClassification: TextView): String {

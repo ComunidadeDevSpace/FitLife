@@ -99,5 +99,12 @@ Obesidade Grau III               Acima de 40"
         android:fontFamily="@font/poppins_medium"
         />
 
+    <!--precisa ver sobre o hiperlink  -->
+    <Button
+        android:id="@+id/BtnDetalhe"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:text="CLIQUE AQUI PARA SABER MAIS SOBRE AS CLASSIFICAÇÕES DO IMC"
 
 </LinearLayout>
