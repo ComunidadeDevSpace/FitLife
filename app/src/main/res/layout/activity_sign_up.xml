@@ -137,6 +137,8 @@
                     android:layout_height="match_parent"
                     android:background="@android:color/transparent"
                     android:hint="Ex: joao@gmail.com" />
+
+
             </com.google.android.material.card.MaterialCardView>
 
             <!--PASSWORD LAYOUT-->
@@ -235,7 +237,7 @@
                     android:layout_height="match_parent">
 
                     <TextView
-                        android:id="@+id/date_tv"
+                        android:id="@+id/time_tv"
                         style="@style/signup_desc"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
@@ -594,6 +596,341 @@
 
             </com.google.android.material.card.MaterialCardView>
 
+            <TextView
+                android:id="@+id/alongamento_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Rotina de alongamentos"
+                android:layout_marginTop="19dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/exercise" />
+
+            <androidx.appcompat.widget.SwitchCompat
+                android:id="@+id/switch_alongamentos"
+                android:theme="@style/SCBSwitch"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:checked="false"
+                app:layout_constraintBottom_toBottomOf="@+id/alongamento_tv"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="@+id/alongamento_tv"
+                android:layout_marginEnd="24dp"/>
+
+            <TextView
+                android:id="@+id/alongamento_data_tv"
+                style="@style/signup_title"
+                android:layout_marginTop="19dp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Repetição semanal "
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_tv"
+                android:visibility="gone"/>
+
+            <RadioGroup
+                android:id="@+id/data_radio_group"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:orientation="horizontal"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                android:visibility="gone">
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/monday_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Seg"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                     />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/tues_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Ter"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/wed_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Qua"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/thurs_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Qui"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/friday_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Sex"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/sat_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Sab"
+                    android:textSize="12sp"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+
+                <androidx.appcompat.widget.AppCompatRadioButton
+                    android:id="@+id/sunday_rb"
+                    style="@style/signup_check"
+                    android:layout_width="40dp"
+                    android:layout_height="40dp"
+                    android:layout_weight="1"
+                    android:layout_marginTop="6dp"
+                    android:layout_marginStart="15dp"
+                    android:background="@drawable/radio_group_alongamento_selected"
+                    android:button="@color/white"
+                    android:gravity="center"
+                    android:onClick="onRadioButtonClicked"
+                    android:text="Dom"
+                    android:textSize="12sp"
+                    android:checked="true"
+                    app:layout_constraintTop_toBottomOf="@+id/alongamento_data_tv"
+                    />
+
+            </RadioGroup>
+
+            <TextView
+                android:id="@+id/repetição_dia_tv"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Repetições ao dia"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/data_radio_group"
+                android:visibility="gone"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/alogangamento_spinner"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="83dp"
+                android:layout_height="38dp"
+                app:cardCornerRadius="3dp"
+                android:layout_marginTop="6dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@id/repetição_dia_tv"
+                android:visibility="gone">
+
+                <Spinner
+                    android:id="@+id/spinner_alongamento"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:entries="@array/Stretch_spinner"
+                    android:gravity="center"/>
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <TextView
+                android:id="@+id/textView4"
+                style="@style/signup_title"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="19dp"
+                android:text="Horario"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/alogangamento_spinner"
+                android:visibility="gone"/>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/alongamento_cardView"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="110dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="6dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/alongamento_time_tv"
+                        style="@style/signup_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="07:00"
+                        android:inputType="none"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/time_btn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/time_btn"
+                        android:layout_width="21dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@color/white"
+                        android:src="@drawable/baseline_access_time_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+            </com.google.android.material.card.MaterialCardView>
+
+
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/alongamento2_cardView"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="110dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="6dp"
+                android:layout_marginStart="14dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toEndOf="@+id/alongamento_cardView"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/alongamento_time2_tv"
+                        style="@style/signup_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="07:00"
+                        android:inputType="none"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/time2_btn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/time2_btn"
+                        android:layout_width="21dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@color/white"
+                        android:src="@drawable/baseline_access_time_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:id="@+id/alongamento3_cardView"
+                style="@style/Widget.Material3.CardView.Outlined"
+                android:layout_width="110dp"
+                android:layout_height="39dp"
+                android:layout_marginTop="5dp"
+                android:layout_marginStart="14dp"
+                app:cardCornerRadius="3dp"
+                app:layout_constraintStart_toEndOf="@+id/alongamento2_cardView"
+                app:layout_constraintTop_toBottomOf="@+id/textView4"
+                android:visibility="gone">
+
+                <androidx.constraintlayout.widget.ConstraintLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent">
+
+                    <TextView
+                        android:id="@+id/alongamento_time3_tv"
+                        style="@style/signup_desc"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginStart="18dp"
+                        android:background="@android:color/transparent"
+                        android:hint="07:00"
+                        android:inputType="none"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toEndOf="@+id/time3_btn"
+                        app:layout_constraintTop_toTopOf="parent" />
+
+                    <ImageView
+                        android:id="@+id/time3_btn"
+                        android:layout_width="21dp"
+                        android:layout_height="24dp"
+                        android:layout_marginStart="18dp"
+                        android:background="@color/white"
+                        android:src="@drawable/baseline_access_time_24"
+                        app:layout_constraintBottom_toBottomOf="parent"
+                        app:layout_constraintStart_toStartOf="parent"
+                        app:layout_constraintTop_toTopOf="parent" />
+                </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+            </com.google.android.material.card.MaterialCardView>
+
+
             <androidx.appcompat.widget.AppCompatButton
                 android:id="@+id/save_btn"
                 style="@style/ButtonPrimary"
@@ -606,10 +943,12 @@
                 app:layout_constraintBottom_toBottomOf="parent"
                 app:layout_constraintEnd_toEndOf="parent"
                 app:layout_constraintStart_toStartOf="parent"
-                app:layout_constraintTop_toBottomOf="@id/exercise" />
+                app:layout_constraintTop_toBottomOf="@+id/alongamento_cardView" />
 
 
         </androidx.constraintlayout.widget.ConstraintLayout>
+
+
 
     </ScrollView>
 
